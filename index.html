@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Adlor · IA</title>
+  <meta name="description" content="Adlor — Inteligencia artificial aplicada. Construimos software y agentes que trabajan por ti.">
+
+  <!-- ===== FAVICON (opcional): pon tu logo en assets/ y descomenta =====
+  <link rel="icon" href="assets/favicon.png"> -->
+
+  <!-- El sistema de diseño completo vive en css/styles.css -->
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<!-- ================================================================
+     FONDO ANIMADO — no se toca (lluvia Matrix + brillos + viñeta)
+     ================================================================ -->
+<canvas id="matrix" aria-hidden="true"></canvas>
+<div class="glows"></div>
+<div class="vign"></div>
+
+<div class="adlor">
+
+  <!-- ================================================================
+       DOCK LATERAL (navegación).  Cada botón salta a una sección.
+       Para agregar una sección nueva:
+         1) copia un <a class="dockbtn"> aquí (con su href e icono)
+         2) crea abajo un <section class="section" id="...">
+       ================================================================ -->
+  <aside class="osdock" role="navigation" aria-label="Navegación">
+    <!-- ESPACIO PARA TU LOGO: reemplaza el <div> por <img src="assets/logo.svg"> -->
+    <div class="dock-logo" title="Logo de Adlor"><b>ADLOR</b></div>
+
+    <nav class="dock-nav">
+      <a class="dockbtn active" href="#inicio" data-target="#inicio" aria-label="Inicio">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5 12 4l9 6.5"/><path d="M5 9.5V20h14V9.5"/><path d="M10 20v-5h4v5"/></svg><span class="tip">Inicio</span></a>
+      <a class="dockbtn" href="#proyectos" data-target="#proyectos" aria-label="Proyectos">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="8" height="8" rx="1.5"/><rect x="13" y="4" width="8" height="5" rx="1.5"/><rect x="13" y="12" width="8" height="8" rx="1.5"/><rect x="3" y="15" width="8" height="5" rx="1.5"/></svg><span class="tip">Proyectos</span></a>
+      <a class="dockbtn" href="#servicios" data-target="#servicios" aria-label="Servicios">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5.2 5.2l2.1 2.1M16.7 16.7l2.1 2.1M18.8 5.2l-2.1 2.1M7.3 16.7l-2.1 2.1"/><circle cx="12" cy="12" r="3.4"/></svg><span class="tip">Servicios</span></a>
+      <a class="dockbtn" href="#nosotros" data-target="#nosotros" aria-label="Nosotros">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3"/><path d="M3.5 20a5.5 5.5 0 0 1 11 0"/><path d="M16 6.5a3 3 0 0 1 0 5.8"/><path d="M17 15.4a5.5 5.5 0 0 1 3.5 4.6"/></svg><span class="tip">Nosotros</span></a>
+      <a class="dockbtn" href="#contacto" data-target="#contacto" aria-label="Contacto">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16v12H4z"/><path d="M4 7l8 6 8-6"/></svg><span class="tip">Contacto</span></a>
+    </nav>
+
+    <div class="dock-foot">
+      <div class="dock-sep"></div>
+      <a class="dockbtn" href="#contacto" aria-label="Ajustes">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5.2 5.2l2.1 2.1M16.7 16.7l2.1 2.1M18.8 5.2l-2.1 2.1M7.3 16.7l-2.1 2.1"/></svg><span class="tip">Ajustes</span></a>
+      <span class="avatar" title="Adrián">AD</span>
+    </div>
+  </aside>
+
+  <!-- ================================================================
+       BARRA SUPERIOR (menú + reloj en vivo).  Edita el texto libremente.
+       ================================================================ -->
+  <header class="top">
+    <div class="crumb"><b>Adlor</b> <span class="sl">/</span> <span>Inteligencia Artificial</span></div>
+    <div class="menurow">
+      <a class="on" href="#inicio">Inicio</a>
+      <a href="#proyectos">Proyectos</a>
+      <a href="#servicios">Servicios</a>
+      <a href="#nosotros">Nosotros</a>
+      <a href="#contacto">Contacto</a>
+    </div>
+    <div class="telem">
+      <span class="kv"><span class="status-dot"></span><b>EN LÍNEA</b></span>
+      <span class="kv">UPTIME <b class="tnum" id="uptime">00:00:00</b></span>
+      <span class="clock tnum" id="clock">--:--:--</span>
+    </div>
+  </header>
+
+  <div class="wrap">
+
+    <!-- ============================================================
+         HERO — titular principal + núcleo 3D
+         Edita el eyebrow, el <h1>, el <p> y los botones.
+         ============================================================ -->
+    <section class="hero section" id="inicio">
+      <div class="hero-copy">
+        <div class="eyebrow">Adlor · Inteligencia Artificial</div>
+        <h1>Construimos IA<br>que <em>trabaja</em> por ti.</h1>
+        <p class="lede">Diseñamos software y agentes autónomos que ejecutan tareas reales de tu negocio — con supervisión humana donde importa. Tú decides; la máquina opera.</p>
+        <div class="cta-row">
+          <a class="btn" href="#contacto">Hablemos de tu proyecto</a>
+          <a class="btn ghost" href="#proyectos">Ver proyectos</a>
+        </div>
+
+        <!-- Métricas / claims. Cambia números y etiquetas o borra el bloque. -->
+        <div class="kpis">
+          <div class="kpi"><div class="lbl">Proyectos</div><div class="val tnum">04<span class="u">+</span></div></div>
+          <div class="kpi"><div class="lbl">Automatizado</div><div class="val tnum">24/7</div></div>
+          <div class="kpi"><div class="lbl">Región</div><div class="val">LATAM</div></div>
+          <div class="kpi"><div class="lbl">Enfoque</div><div class="val">IA</div></div>
+        </div>
+      </div>
+
+      <!-- NÚCLEO 3D — no se toca (lo dibuja js/animations.js) -->
+      <div class="core-stage">
+        <span class="bk tl"></span><span class="bk tr"></span><span class="bk bl"></span><span class="bk br"></span>
+        <div class="core-tag">Núcleo · Adlor</div>
+        <canvas id="core" width="440" height="440" aria-hidden="true"></canvas>
+        <div class="core-caption">Inteligencia aplicada · en tiempo real</div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SECCIÓN: PROYECTOS
+         Para agregar un proyecto: copia una <article class="card">.
+         ============================================================ -->
+    <section class="section" id="proyectos">
+      <div class="win-head">
+        <span class="win-dots"><i></i><i></i><i></i></span>
+        <span class="win-title"><b>Proyectos</b> &nbsp;·&nbsp; adlor://proyectos</span>
+        <span class="win-title" style="margin-left:auto">DESTACADOS</span>
+      </div>
+
+      <div class="grid">
+        <!-- Numbrica — EN VIVO (numbrica.com) -->
+        <article class="card"><div class="glow"></div>
+          <div class="row1"><div class="face">NB</div>
+            <div class="who"><div class="name">Numbrica</div><div class="role">Astrología · SaaS</div></div>
+            <span class="pill working" style="margin-left:auto"><i></i>En vivo</span></div>
+          <p class="act">Guías de vida, pareja y negocio con <b>astrología occidental, numerología y BaZi</b>, calculadas con efemérides reales.</p>
+          <div class="foot"><span class="metric">STACK · <b>Next.js · Stripe</b></span><a class="metric" href="https://numbrica.com" target="_blank" rel="noopener" style="color:var(--cyan);text-decoration:none">Visitar →</a></div>
+        </article>
+
+        <!-- Adlor Agent — EN CURSO -->
+        <article class="card"><div class="glow"></div>
+          <div class="row1"><div class="face">AG</div>
+            <div class="who"><div class="name">Adlor Agent</div><div class="role">Agentes de IA</div></div>
+            <span class="pill wait" style="margin-left:auto"><i></i>En curso</span></div>
+          <p class="act">Fábrica de <b>empleados digitales de IA</b> que operan con supervisión y aprobaciones, para creadores de LATAM.</p>
+          <div class="foot"><span class="metric">STACK · <b>Next.js · IA</b></span><span class="metric">Pronto</span></div>
+        </article>
+
+        <!-- Signum — EN CURSO -->
+        <article class="card"><div class="glow"></div>
+          <div class="row1"><div class="face">SG</div>
+            <div class="who"><div class="name">Signum</div><div class="role">Newsletters IA</div></div>
+            <span class="pill wait" style="margin-left:auto"><i></i>En curso</span></div>
+          <p class="act">SaaS que crea newsletters con IA de punta a punta: <b>investigación con fuentes</b>, redacción experta, envío y monetización.</p>
+          <div class="foot"><span class="metric">STACK · <b>Next.js · AWS</b></span><span class="metric">Pronto</span></div>
+        </article>
+
+        <!-- Mi Carta Astral — EN CURSO -->
+        <article class="card"><div class="glow"></div>
+          <div class="row1"><div class="face">MC</div>
+            <div class="who"><div class="name">Mi Carta Astral</div><div class="role">Astrología · Web</div></div>
+            <span class="pill wait" style="margin-left:auto"><i></i>En curso</span></div>
+          <p class="act">App para generar tu <b>carta astral</b> y lecturas de numerología, con pago integrado.</p>
+          <div class="foot"><span class="metric">STACK · <b>Next.js</b></span><span class="metric">Pronto</span></div>
+        </article>
+
+        <!-- Tarjeta "vacía" para invitar a un nuevo proyecto (opcional) -->
+        <a class="card add" href="#contacto">
+          <div class="plus">+</div>
+          <div style="margin-top:12px;font-weight:600;font-size:14px">¿Tienes una idea?</div>
+          <div class="role" style="margin-top:4px">Construyámosla juntos</div>
+        </a>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SECCIÓN: SERVICIOS
+         ============================================================ -->
+    <section class="section" id="servicios" style="margin-top:48px">
+      <div class="win-head">
+        <span class="win-dots"><i></i><i></i><i></i></span>
+        <span class="win-title"><b>Servicios</b> &nbsp;·&nbsp; adlor://servicios</span>
+        <span class="win-title" style="margin-left:auto">QUÉ HACEMOS</span>
+      </div>
+
+      <div class="grid">
+        <article class="card"><div class="glow"></div>
+          <div class="row1"><div class="face">◆</div>
+            <div class="who"><div class="name">Agentes de IA</div><div class="role">Autónomos</div></div></div>
+          <p class="act">Empleados digitales que ejecutan tareas reales de tu operación, con controles y aprobaciones.</p>
+        </article>
+        <article class="card"><div class="glow"></div>
+          <div class="row1"><div class="face">◆</div>
+            <div class="who"><div class="name">Software a medida</div><div class="role">Web · Apps</div></div></div>
+          <p class="act">Desarrollamos productos web modernos, rápidos y escalables sobre stacks probados.</p>
+        </article>
+        <article class="card"><div class="glow"></div>
+          <div class="row1"><div class="face">◆</div>
+            <div class="who"><div class="name">Automatización</div><div class="role">Procesos</div></div></div>
+          <p class="act">Conectamos tus herramientas y quitamos el trabajo repetitivo de tu día a día.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SECCIÓN: NOSOTROS
+         ============================================================ -->
+    <section class="section" id="nosotros" style="margin-top:48px">
+      <div class="sec-head">
+        <h2>Nosotros</h2><span class="rule"></span><span class="count">ADLOR</span>
+      </div>
+      <div class="card" style="padding:26px 28px">
+        <p class="lede" style="max-width:70ch;margin:0">
+          En <b style="color:var(--ink)">Adlor</b> creemos que la inteligencia artificial debe ser una
+          herramienta que multiplica a las personas, no que las reemplaza. Construimos sistemas que
+          trabajan solos dentro de límites claros y te piden permiso cuando importa.
+          <span style="color:var(--muted)">Escribe aquí tu historia, tu misión y lo que te hace distinto.</span>
+        </p>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SECCIÓN: CONTACTO (banda tipo CTA)
+         ============================================================ -->
+    <section class="section" id="contacto" style="margin-top:8px">
+      <div class="approve">
+        <div class="ic">✦</div>
+        <div class="txt">
+          <div class="t">¿Trabajamos juntos?</div>
+          <div class="d">Cuéntame tu idea y te respondo. <b>Escríbeme</b> y armamos algo.</div>
+        </div>
+        <!-- Cambia el correo por el tuyo -->
+        <a class="btn ghost" href="mailto:hola@adlor.ia">Enviar correo</a>
+        <a class="btn" href="mailto:hola@adlor.ia?subject=Proyecto%20con%20Adlor">Empezar proyecto</a>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         PIE DE PÁGINA
+         ============================================================ -->
+    <footer class="foot">
+      <span class="l">ADLOR · IA</span>
+      <span class="r">INTELIGENCIA ARTIFICIAL APLICADA · <b>LATAM</b></span>
+    </footer>
+  </div>
+
+  <!-- ================================================================
+       BARRA DE ESTADO INFERIOR (decorativa).  Edita el texto si quieres.
+       ================================================================ -->
+  <div class="osbar" aria-hidden="true">
+    <span class="seg"><span class="dotx"></span> ADLOR <b>· IA</b></span>
+    <span class="seg">REGIÓN <b>LATAM · MX</b></span>
+    <span class="seg">ESTADO <b>Disponible</b></span>
+    <span class="seg grow"><span class="ok">● LISTO PARA NUEVOS PROYECTOS</span></span>
+  </div>
+</div>
+
+<!-- Toda la animación y la interacción viven aquí -->
+<script src="js/animations.js"></script>
+</body>
+</html>

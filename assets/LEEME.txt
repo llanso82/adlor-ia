@@ -1,0 +1,8 @@
+Coloca aquí tus recursos:
+
+  logo.svg        → logo para el dock (ver README, sección "Poner tu logo")
+  favicon.png     → icono de la pestaña del navegador
+  og-image.png    → imagen para redes sociales (opcional)
+  imágenes de proyectos, etc.
+
+Esta carpeta puede quedar vacía; el sitio funciona sin ella.
