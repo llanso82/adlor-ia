@@ -179,10 +179,8 @@ footer.foot .r b{color:var(--cyan)}
   background:linear-gradient(180deg,rgba(8,11,16,.82),rgba(5,7,11,.86));
   border-right:1px solid var(--line);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
 .dock-logo{width:40px;height:40px;border-radius:11px;display:grid;place-items:center;position:relative;
-  border:1px dashed var(--line-strong);background:linear-gradient(180deg,rgba(66,230,255,.07),transparent);margin-bottom:10px}
-.dock-logo::after{content:"";width:9px;height:9px;border-radius:50%;background:var(--cyan);
-  box-shadow:0 0 16px 3px rgba(66,230,255,.85)}
-.dock-logo b{position:absolute;bottom:-13px;font-family:var(--mono);font-size:7px;letter-spacing:.16em;color:var(--faint)}
+  margin-bottom:10px;color:#fff}
+.dock-logo .logo-mark{width:30px;height:30px;display:block}
 .dock-nav{display:flex;flex-direction:column;gap:4px;margin-top:6px;width:100%;align-items:center}
 .dockbtn{width:46px;height:44px;border-radius:12px;display:grid;place-items:center;color:var(--muted);
   position:relative;cursor:pointer;border:1px solid transparent;transition:color .2s,background .2s,border-color .2s;
@@ -206,6 +204,7 @@ footer.foot .r b{color:var(--cyan)}
 
 /* ===== menu bar refinada + reloj ===== */
 header.top .crumb{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--muted)}
+header.top .crumb .crumb-logo{width:20px;height:20px;display:block;color:#fff;flex:0 0 auto}
 header.top .crumb b{color:var(--ink);font-weight:600}
 header.top .crumb .sl{color:var(--faint)}
 .menurow{display:flex;align-items:center;gap:2px;margin-left:6px}
