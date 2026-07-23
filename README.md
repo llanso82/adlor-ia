@@ -1,13 +1,29 @@
-# Adlor · IA — Landing (diseño portable)
+# Adlor · IA — Sitio web
 
-Kit **listo para copiar a otro proyecto**. Mismo diseño exacto del mockup de Adlor
-(negro, núcleo 3D tipo reactor, lluvia "Matrix" blanca, chrome tipo sistema operativo),
-reestructurado como **página principal** editable. Sin dependencias, sin CDN, sin build.
+Página principal de **Adlor · IA** (negro, núcleo 3D tipo reactor, lluvia "Matrix" blanca,
+chrome tipo sistema operativo). Sin dependencias, sin CDN, sin build.
+
+## 🌐 En vivo
+- **Dominio:** https://adlor-ia.com  *(propaga el DNS; HTTPS automático de Vercel)*
+- **Vercel:** https://adlor-ia.vercel.app
+- **Repo:** https://github.com/llanso82/adlor-ia
+
+## 🔄 Cómo actualizar el sitio
+Este proyecto es **independiente** (su propio repo Git + Vercel). Para publicar cambios:
+
+```bash
+# 1) edita los archivos (index.html, css/, js/, assets/)
+git add -A
+git commit -m "describe tu cambio"
+git push          # Vercel redespliega solo en ~30 s
+```
+
+Para verlo en local antes de subir: `python -m http.server 8000` dentro de la carpeta y abre `http://localhost:8000`.
 
 ## Estructura
 
 ```
-adlor-ia-landing/
+adlor-ia/
 ├── index.html          ← CONTENIDO (edita aquí: textos, secciones, proyectos)
 ├── css/
 │   └── styles.css      ← DISEÑO (colores, tipografías, chrome) — normalmente no se toca
