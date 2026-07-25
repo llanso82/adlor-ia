@@ -245,3 +245,77 @@ header.top .crumb .sl{color:var(--faint)}
 .osbar .ok{color:var(--cyan)}
 .osbar .dotx{width:6px;height:6px;border-radius:50%;background:var(--cyan);box-shadow:0 0 8px 1px rgba(66,230,255,.8)}
 @media (max-width:880px){ .osbar{display:none} }
+
+/* ===== Formulario de contacto (.cform — lo usa js/contact.js) ===== */
+.cform{display:flex;flex-direction:column;gap:16px;margin-top:4px}
+.cform-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.cf-field{display:flex;flex-direction:column;gap:7px;min-width:0}
+.cf-label{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.cform input[type="text"],.cform input[type="email"],.cform select,.cform textarea{
+  width:100%;font-family:var(--sans);font-size:14px;line-height:1.45;color:var(--ink);
+  background:rgba(8,12,18,.6);border:1px solid var(--line);border-radius:10px;padding:11px 13px;
+  -webkit-appearance:none;appearance:none;transition:border-color .2s,box-shadow .2s,background .2s}
+.cform input::placeholder,.cform textarea::placeholder{color:var(--faint);opacity:1}
+.cform textarea{resize:vertical;min-height:120px;line-height:1.55}
+/* foco: borde cian + glow suave (sin outline nativo; el glow ES el indicador) */
+.cform input:focus,.cform select:focus,.cform textarea:focus{outline:none;
+  border-color:rgba(66,230,255,.55);background:rgba(9,14,21,.78);
+  box-shadow:0 0 0 1px rgba(66,230,255,.22),0 0 24px -8px rgba(66,230,255,.45)}
+/* select con flecha propia (SVG inline en cian tenue) y opciones oscuras */
+.cform select{cursor:pointer;padding-right:38px;background-repeat:no-repeat;background-position:right 14px center;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='%2342E6FF' stroke-opacity='.6' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")}
+.cform select option{background:#0A0E14;color:var(--ink)}
+/* autofill del navegador sin fogonazo blanco */
+.cform input:-webkit-autofill{-webkit-text-fill-color:var(--ink);caret-color:var(--ink);
+  -webkit-box-shadow:0 0 0 1000px #0A0E14 inset;transition:background-color 99999s ease-out}
+/* validación sutil en ámbar (nativa y vía clase .invalid que añade el JS) */
+.cform input:user-invalid,.cform select:user-invalid,.cform textarea:user-invalid{
+  border-color:rgba(245,184,75,.55);box-shadow:0 0 0 1px rgba(245,184,75,.16)}
+.cf-field.invalid input,.cf-field.invalid select,.cf-field.invalid textarea{
+  border-color:rgba(245,184,75,.55);box-shadow:0 0 0 1px rgba(245,184,75,.16)}
+/* honeypot anti-spam: fuera de pantalla, nunca display:none */
+.cf-honey{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;opacity:0;pointer-events:none}
+.cf-actions{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:2px}
+/* botón en estado "enviando…" */
+.btn[disabled],.btn.sending{opacity:.55;cursor:wait;box-shadow:none}
+.btn[disabled]:hover,.btn.sending:hover{border-color:var(--line-strong);color:var(--ink);box-shadow:none}
+/* mensaje de estado: reserva su alto (sin saltos) y aparece al llenarse */
+.cf-status{font-family:var(--mono);font-size:12px;letter-spacing:.05em;color:var(--muted);
+  margin:0;min-height:18px;transition:opacity .25s}
+.cf-status:empty{opacity:0}
+.cf-status.ok{color:var(--cyan);text-shadow:0 0 14px rgba(66,230,255,.4)}
+.cf-status.err{color:var(--amber);text-shadow:0 0 14px rgba(245,184,75,.3)}
+
+/* ===== Sección Proceso (.steps — 4 pasos con acento secuencial) ===== */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.step{position:relative;background:var(--panel);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border:1px solid var(--line);border-radius:14px;padding:20px 18px 18px;overflow:hidden;
+  transition:border-color .25s,transform .25s,box-shadow .25s}
+/* acento superior: línea cian que se desvanece → sugiere secuencia */
+.step::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,rgba(66,230,255,.55),rgba(66,230,255,.12) 55%,transparent)}
+.step::after{content:"";position:absolute;top:0;left:0;width:34px;height:2px;border-radius:0 2px 2px 0;
+  background:var(--cyan);box-shadow:0 0 12px 1px rgba(66,230,255,.6)}
+.step:hover{border-color:var(--line-strong);transform:translateY(-3px);
+  box-shadow:0 22px 50px -26px rgba(0,0,0,.9),0 0 0 1px rgba(66,230,255,.08)}
+.step-num{font-family:var(--mono);font-size:26px;font-weight:600;letter-spacing:.06em;color:var(--cyan);
+  text-shadow:0 0 22px rgba(66,230,255,.5)}
+.step-name{font-weight:600;font-size:15px;letter-spacing:.01em;margin-top:10px}
+.step-desc{color:var(--muted);font-size:13px;margin:8px 0 0}
+
+/* ===== Pulido: enlaces del pie coherentes con el sistema ===== */
+footer.foot a{color:var(--cyan);text-decoration:none;transition:color .2s,text-shadow .2s}
+footer.foot a:hover{text-shadow:0 0 14px rgba(66,230,255,.6)}
+
+/* ===== Responsive: formulario y proceso (después de las bases, para ganar el cascade) ===== */
+@media (max-width:1100px){ .steps{grid-template-columns:repeat(2,1fr)} }
+@media (max-width:880px){
+  .cform-grid{grid-template-columns:1fr}
+  /* 16px evita el auto-zoom de iOS al enfocar campos */
+  .cform input[type="text"],.cform input[type="email"],.cform select,.cform textarea{font-size:16px}
+}
+@media (max-width:640px){ .steps{grid-template-columns:1fr} }
+@media (prefers-reduced-motion:reduce){
+  .step,.cform input,.cform select,.cform textarea,.cf-status{transition:none}
+  .step:hover,.card:hover{transform:none}
+}

@@ -3,8 +3,15 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Adlor · IA</title>
-  <meta name="description" content="Adlor — Inteligencia artificial aplicada. Construimos software y agentes que trabajan por ti.">
+  <title>Adlor · IA — Agentes y software que trabajan por ti</title>
+  <meta name="description" content="Adlor es un estudio de IA aplicada en México: agentes autónomos, software a medida, automatización de procesos y video generado con IA. Numbrica, nuestro SaaS insignia, ya opera en producción.">
+  <meta name="theme-color" content="#04060A">
+
+  <!-- Open Graph (cómo se ve el enlace al compartirlo) -->
+  <meta property="og:title" content="Adlor · IA — Agentes y software que trabajan por ti">
+  <meta property="og:description" content="Estudio de IA aplicada en México: agentes autónomos, software a medida, automatización y video con IA. Sistemas que trabajan solos, con aprobación humana donde importa.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="es_MX">
 
   <!-- Favicon (logo de Adlor sobre cuadro oscuro) -->
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
@@ -47,6 +54,8 @@
         <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="8" height="8" rx="1.5"/><rect x="13" y="4" width="8" height="5" rx="1.5"/><rect x="13" y="12" width="8" height="8" rx="1.5"/><rect x="3" y="15" width="8" height="5" rx="1.5"/></svg><span class="tip">Proyectos</span></a>
       <a class="dockbtn" href="#servicios" data-target="#servicios" aria-label="Servicios">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5.2 5.2l2.1 2.1M16.7 16.7l2.1 2.1M18.8 5.2l-2.1 2.1M7.3 16.7l-2.1 2.1"/><circle cx="12" cy="12" r="3.4"/></svg><span class="tip">Servicios</span></a>
+      <a class="dockbtn" href="#proceso" data-target="#proceso" aria-label="Proceso">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="5" cy="5" r="1.8"/><path d="M6.8 5H15a3.5 3.5 0 0 1 0 7H9a3.5 3.5 0 0 0 0 7h9.2"/><circle cx="19" cy="19" r="1.8"/></svg><span class="tip">Proceso</span></a>
       <a class="dockbtn" href="#nosotros" data-target="#nosotros" aria-label="Nosotros">
         <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3"/><path d="M3.5 20a5.5 5.5 0 0 1 11 0"/><path d="M16 6.5a3 3 0 0 1 0 5.8"/><path d="M17 15.4a5.5 5.5 0 0 1 3.5 4.6"/></svg><span class="tip">Nosotros</span></a>
       <a class="dockbtn" href="#contacto" data-target="#contacto" aria-label="Contacto">
@@ -77,6 +86,7 @@
       <a class="on" href="#inicio">Inicio</a>
       <a href="#proyectos">Proyectos</a>
       <a href="#servicios">Servicios</a>
+      <a href="#proceso">Proceso</a>
       <a href="#nosotros">Nosotros</a>
       <a href="#contacto">Contacto</a>
     </div>
@@ -95,9 +105,9 @@
          ============================================================ -->
     <section class="hero section" id="inicio">
       <div class="hero-copy">
-        <div class="eyebrow">Adlor · Inteligencia Artificial</div>
+        <div class="eyebrow">Adlor · Estudio de IA aplicada · México</div>
         <h1>Construimos IA<br>que <em>trabaja</em> por ti.</h1>
-        <p class="lede">Diseñamos software y agentes autónomos que ejecutan tareas reales de tu negocio — con supervisión humana donde importa. Tú decides; la máquina opera.</p>
+        <p class="lede">Software y agentes autónomos que ejecutan tareas reales de tu negocio: operan solos dentro de límites claros y piden aprobación humana donde importa. Tú decides; la máquina opera.</p>
         <div class="cta-row">
           <a class="btn" href="#contacto">Hablemos de tu proyecto</a>
           <a class="btn ghost" href="#proyectos">Ver proyectos</a>
@@ -105,10 +115,10 @@
 
         <!-- Métricas / claims. Cambia números y etiquetas o borra el bloque. -->
         <div class="kpis">
-          <div class="kpi"><div class="lbl">Proyectos</div><div class="val tnum">04<span class="u">+</span></div></div>
-          <div class="kpi"><div class="lbl">Automatizado</div><div class="val tnum">24/7</div></div>
+          <div class="kpi"><div class="lbl">Proyectos</div><div class="val tnum">05</div></div>
+          <div class="kpi"><div class="lbl">En producción</div><div class="val tnum">02</div></div>
+          <div class="kpi"><div class="lbl">Operando</div><div class="val tnum">24/7</div></div>
           <div class="kpi"><div class="lbl">Región</div><div class="val">LATAM</div></div>
-          <div class="kpi"><div class="lbl">Enfoque</div><div class="val">IA</div></div>
         </div>
       </div>
 
@@ -124,49 +134,60 @@
     <!-- ============================================================
          SECCIÓN: PROYECTOS
          Para agregar un proyecto: copia una <article class="card">.
+         Estados: "En vivo" → .pill.working · "En desarrollo" → .pill.wait
+                  "Prototipo" → .pill.paused
          ============================================================ -->
     <section class="section" id="proyectos">
       <div class="win-head">
         <span class="win-dots"><i></i><i></i><i></i></span>
         <span class="win-title"><b>Proyectos</b> &nbsp;·&nbsp; adlor://proyectos</span>
-        <span class="win-title" style="margin-left:auto">DESTACADOS</span>
+        <span class="win-title" style="margin-left:auto">05 ACTIVOS</span>
       </div>
 
       <div class="grid">
-        <!-- Numbrica — EN VIVO (numbrica.com) -->
+        <!-- Numbrica — EN VIVO (numbrica.com) · proyecto insignia -->
         <article class="card"><div class="glow"></div>
           <div class="row1"><div class="face">NB</div>
             <div class="who"><div class="name">Numbrica</div><div class="role">Astrología · SaaS</div></div>
             <span class="pill working" style="margin-left:auto"><i></i>En vivo</span></div>
-          <p class="act">Guías de vida, pareja y negocio con <b>astrología occidental, numerología y BaZi</b>, calculadas con efemérides reales.</p>
+          <p class="act">Guías premium de vida, pareja y negocio con <b>astrología occidental, numerología y BaZi</b>, calculadas con efemérides reales. Con suscripción, newsletter y consultas automatizadas.</p>
           <div class="foot"><span class="metric">STACK · <b>Next.js · Stripe</b></span><a class="metric" href="https://numbrica.com" target="_blank" rel="noopener" style="color:var(--cyan);text-decoration:none">Visitar →</a></div>
         </article>
 
-        <!-- Adlor Agent — EN CURSO -->
+        <!-- A-Val — EN VIVO (aval.adlorflow.com) -->
+        <article class="card"><div class="glow"></div>
+          <div class="row1"><div class="face">AV</div>
+            <div class="who"><div class="name">A-Val</div><div class="role">Personas · Evaluación</div></div>
+            <span class="pill working" style="margin-left:auto"><i></i>En vivo</span></div>
+          <p class="act">Perfil de <b>valores del ser humano</b>: evaluación en línea que mapea los principios que guían a cada persona, para individuos y organizaciones.</p>
+          <div class="foot"><span class="metric">STACK · <b>Next.js · Tailwind</b></span><a class="metric" href="https://aval.adlorflow.com/" target="_blank" rel="noopener" style="color:var(--cyan);text-decoration:none">Visitar →</a></div>
+        </article>
+
+        <!-- Adlor Agent — EN DESARROLLO -->
         <article class="card"><div class="glow"></div>
           <div class="row1"><div class="face">AG</div>
             <div class="who"><div class="name">Adlor Agent</div><div class="role">Agentes de IA</div></div>
-            <span class="pill wait" style="margin-left:auto"><i></i>En curso</span></div>
+            <span class="pill wait" style="margin-left:auto"><i></i>En desarrollo</span></div>
           <p class="act">Fábrica de <b>empleados digitales de IA</b> que operan con supervisión y aprobaciones, para creadores de LATAM.</p>
           <div class="foot"><span class="metric">STACK · <b>Next.js · IA</b></span><span class="metric">Pronto</span></div>
         </article>
 
-        <!-- Signum — EN CURSO -->
+        <!-- Signum — EN DESARROLLO -->
         <article class="card"><div class="glow"></div>
           <div class="row1"><div class="face">SG</div>
-            <div class="who"><div class="name">Signum</div><div class="role">Newsletters IA</div></div>
-            <span class="pill wait" style="margin-left:auto"><i></i>En curso</span></div>
+            <div class="who"><div class="name">Signum</div><div class="role">Newsletters · IA</div></div>
+            <span class="pill wait" style="margin-left:auto"><i></i>En desarrollo</span></div>
           <p class="act">SaaS que crea newsletters con IA de punta a punta: <b>investigación con fuentes</b>, redacción experta, envío y monetización.</p>
           <div class="foot"><span class="metric">STACK · <b>Next.js · AWS</b></span><span class="metric">Pronto</span></div>
         </article>
 
-        <!-- Mi Carta Astral — EN CURSO -->
+        <!-- Video Studio — EN DESARROLLO (pipeline interno ya operativo) -->
         <article class="card"><div class="glow"></div>
-          <div class="row1"><div class="face">MC</div>
-            <div class="who"><div class="name">Mi Carta Astral</div><div class="role">Astrología · Web</div></div>
-            <span class="pill wait" style="margin-left:auto"><i></i>En curso</span></div>
-          <p class="act">App para generar tu <b>carta astral</b> y lecturas de numerología, con pago integrado.</p>
-          <div class="foot"><span class="metric">STACK · <b>Next.js</b></span><span class="metric">Pronto</span></div>
+          <div class="row1"><div class="face">VS</div>
+            <div class="who"><div class="name">Video Studio</div><div class="role">Video · IA</div></div>
+            <span class="pill wait" style="margin-left:auto"><i></i>En desarrollo</span></div>
+          <p class="act">Estudio de <b>video 100% generado por IA</b>: un equipo de 5 agentes escribe el guion, genera los clips, anima los gráficos y entrega el master final con QA frame a frame.</p>
+          <div class="foot"><span class="metric">STACK · <b>5 agentes · IA generativa</b></span><span class="metric">Pipeline interno</span></div>
         </article>
 
         <!-- Tarjeta "vacía" para invitar a un nuevo proyecto (opcional) -->
@@ -179,7 +200,7 @@
     </section>
 
     <!-- ============================================================
-         SECCIÓN: SERVICIOS
+         SECCIÓN: SERVICIOS (grid de 4, en dos columnas)
          ============================================================ -->
     <section class="section" id="servicios" style="margin-top:48px">
       <div class="win-head">
@@ -188,22 +209,62 @@
         <span class="win-title" style="margin-left:auto">QUÉ HACEMOS</span>
       </div>
 
-      <div class="grid">
+      <div class="grid cols-2">
         <article class="card"><div class="glow"></div>
           <div class="row1"><div class="face">◆</div>
             <div class="who"><div class="name">Agentes de IA</div><div class="role">Autónomos</div></div></div>
-          <p class="act">Empleados digitales que ejecutan tareas reales de tu operación, con controles y aprobaciones.</p>
+          <p class="act">Empleados digitales que ejecutan tareas reales de tu operación — investigan, redactan, responden y reportan — con <b>controles y aprobaciones humanas</b> donde importa.</p>
         </article>
         <article class="card"><div class="glow"></div>
           <div class="row1"><div class="face">◆</div>
             <div class="who"><div class="name">Software a medida</div><div class="role">Web · Apps</div></div></div>
-          <p class="act">Desarrollamos productos web modernos, rápidos y escalables sobre stacks probados.</p>
+          <p class="act">Productos web modernos, rápidos y escalables sobre <b>stacks probados en producción</b> — de la idea al lanzamiento, sin humo.</p>
         </article>
         <article class="card"><div class="glow"></div>
           <div class="row1"><div class="face">◆</div>
-            <div class="who"><div class="name">Automatización</div><div class="role">Procesos</div></div></div>
-          <p class="act">Conectamos tus herramientas y quitamos el trabajo repetitivo de tu día a día.</p>
+            <div class="who"><div class="name">Automatización de procesos</div><div class="role">Procesos</div></div></div>
+          <p class="act">Conectamos tus herramientas y eliminamos el trabajo repetitivo: <b>reportes, correos, datos y flujos completos</b> que corren solos.</p>
         </article>
+        <article class="card"><div class="glow"></div>
+          <div class="row1"><div class="face">◆</div>
+            <div class="who"><div class="name">Video con IA</div><div class="role">Producción</div></div></div>
+          <p class="act">Producción de <b>video generado por IA</b> de punta a punta: guion, clips, gráficos animados y master final — respaldada por nuestro Video Studio.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SECCIÓN: PROCESO — cómo trabajamos, en 4 pasos
+         (el estilo de .steps/.step vive en css/styles.css)
+         ============================================================ -->
+    <section class="section" id="proceso" style="margin-top:48px">
+      <div class="win-head">
+        <span class="win-dots"><i></i><i></i><i></i></span>
+        <span class="win-title"><b>Proceso</b> &nbsp;·&nbsp; adlor://proceso</span>
+        <span class="win-title" style="margin-left:auto">CÓMO TRABAJAMOS</span>
+      </div>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">01</div>
+          <div class="step-name">Descubrimiento</div>
+          <p class="step-desc">Entendemos tu negocio, tus procesos y dónde duele. Salimos con un mapa claro de qué automatizar primero y por qué.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">02</div>
+          <div class="step-name">Diseño de la solución</div>
+          <p class="step-desc">Definimos alcance, stack y límites del sistema: qué decide la IA por sí sola y qué pasa siempre por aprobación humana.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">03</div>
+          <div class="step-name">Construcción con IA</div>
+          <p class="step-desc">Construimos con agentes y herramientas de IA que multiplican la velocidad, con revisión y pruebas en cada entrega.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">04</div>
+          <div class="step-name">Operación supervisada</div>
+          <p class="step-desc">Lanzamos, medimos y mantenemos. El sistema trabaja 24/7 y tú conservas el control con métricas y aprobaciones.</p>
+        </div>
       </div>
     </section>
 
@@ -216,27 +277,82 @@
       </div>
       <div class="card" style="padding:26px 28px">
         <p class="lede" style="max-width:70ch;margin:0">
-          En <b style="color:var(--ink)">Adlor</b> creemos que la inteligencia artificial debe ser una
-          herramienta que multiplica a las personas, no que las reemplaza. Construimos sistemas que
-          trabajan solos dentro de límites claros y te piden permiso cuando importa.
-          <span style="color:var(--muted)">Escribe aquí tu historia, tu misión y lo que te hace distinto.</span>
+          <b style="color:var(--ink)">Adlor</b> es un estudio de productos e inteligencia artificial
+          aplicada, fundado por Adrián en México. Construimos nuestros propios SaaS —
+          <a href="https://numbrica.com" target="_blank" rel="noopener" style="color:var(--cyan);text-decoration:none">Numbrica</a>
+          ya opera en producción con clientes reales — y llevamos esa misma ingeniería a soluciones
+          para terceros en toda LATAM.
+        </p>
+        <p class="lede" style="max-width:70ch;margin:16px 0 0">
+          Nuestra filosofía es simple: <b style="color:var(--ink)">la IA multiplica a las personas,
+          no las reemplaza</b>. Por eso todo lo que construimos son sistemas autónomos con límites
+          claros — trabajan solos donde pueden y piden aprobación humana donde importa.
         </p>
       </div>
     </section>
 
     <!-- ============================================================
-         SECCIÓN: CONTACTO (banda tipo CTA)
+         SECCIÓN: CONTACTO — banda CTA + formulario real
+         (los estilos de .cform/.cf-* viven en css/styles.css y la
+          lógica de envío en js/contact.js)
          ============================================================ -->
     <section class="section" id="contacto" style="margin-top:8px">
       <div class="approve">
         <div class="ic">✦</div>
         <div class="txt">
           <div class="t">¿Trabajamos juntos?</div>
-          <div class="d">Cuéntame tu idea y te respondo. <b>Escríbeme</b> y armamos algo.</div>
+          <div class="d">Cuéntame tu idea en el formulario y te respondo pronto. O escríbeme directo a <b>contacto@adlor-ia.com</b>.</div>
         </div>
-        <!-- Cambia el correo por el tuyo -->
-        <a class="btn ghost" href="mailto:hola@adlor.ia">Enviar correo</a>
-        <a class="btn" href="mailto:hola@adlor.ia?subject=Proyecto%20con%20Adlor">Empezar proyecto</a>
+        <a class="btn ghost" href="mailto:contacto@adlor-ia.com">Enviar correo</a>
+        <a class="btn" href="mailto:contacto@adlor-ia.com?subject=Proyecto%20con%20Adlor">Empezar proyecto</a>
+      </div>
+
+      <!-- Formulario de contacto (IDs y clases fijos: los usa js/contact.js) -->
+      <div class="card" style="margin-top:24px;padding:22px 24px">
+        <div class="win-head">
+          <span class="win-dots"><i></i><i></i><i></i></span>
+          <span class="win-title"><b>Contacto</b> &nbsp;·&nbsp; adlor://contacto</span>
+          <span class="win-title" style="margin-left:auto">MENSAJE DIRECTO</span>
+        </div>
+
+        <form id="contact-form" class="cform" novalidate>
+          <div class="cform-grid">
+            <div class="cf-field">
+              <label class="cf-label" for="cf-nombre">Nombre</label>
+              <input id="cf-nombre" name="nombre" type="text" required autocomplete="name" placeholder="Tu nombre">
+            </div>
+            <div class="cf-field">
+              <label class="cf-label" for="cf-email">Correo</label>
+              <input id="cf-email" name="email" type="email" required autocomplete="email" placeholder="tu@correo.com">
+            </div>
+          </div>
+
+          <div class="cf-field">
+            <label class="cf-label" for="cf-interes">¿Qué necesitas?</label>
+            <select id="cf-interes" name="interes">
+              <option value="Agentes de IA">Agentes de IA</option>
+              <option value="Software a medida">Software a medida</option>
+              <option value="Automatización de procesos">Automatización de procesos</option>
+              <option value="Video con IA">Video con IA</option>
+              <option value="Otro">Otro</option>
+            </select>
+          </div>
+
+          <div class="cf-field">
+            <label class="cf-label" for="cf-mensaje">Mensaje</label>
+            <textarea id="cf-mensaje" name="mensaje" rows="5" required placeholder="Cuéntame tu idea o el problema que quieres resolver"></textarea>
+          </div>
+
+          <!-- Honeypot anti-spam: los humanos no lo ven; los bots lo llenan -->
+          <input type="text" name="_honey" class="cf-honey" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+          <div class="cf-actions">
+            <button type="submit" id="cf-send" class="btn">Enviar mensaje</button>
+            <a class="btn ghost" href="mailto:contacto@adlor-ia.com">O escríbeme directo</a>
+          </div>
+
+          <p id="cf-status" class="cf-status" role="status" aria-live="polite"></p>
+        </form>
       </div>
     </section>
 
@@ -244,8 +360,8 @@
          PIE DE PÁGINA
          ============================================================ -->
     <footer class="foot">
-      <span class="l">ADLOR · IA</span>
-      <span class="r">INTELIGENCIA ARTIFICIAL APLICADA · <b>LATAM</b></span>
+      <span class="l">ADLOR · IA · <a href="mailto:contacto@adlor-ia.com" style="color:var(--cyan);text-decoration:none">contacto@adlor-ia.com</a></span>
+      <span class="r">IA APLICADA · <b>LATAM</b> · <a href="https://numbrica.com" target="_blank" rel="noopener" style="color:var(--cyan);text-decoration:none">NUMBRICA →</a></span>
     </footer>
   </div>
 
@@ -262,5 +378,7 @@
 
 <!-- Toda la animación y la interacción viven aquí -->
 <script src="js/animations.js"></script>
+<!-- Lógica de envío del formulario de contacto -->
+<script src="js/contact.js"></script>
 </body>
 </html>

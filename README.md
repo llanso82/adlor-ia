@@ -28,7 +28,8 @@ adlor-ia/
 ├── css/
 │   └── styles.css      ← DISEÑO (colores, tipografías, chrome) — normalmente no se toca
 ├── js/
-│   └── animations.js   ← ANIMACIÓN (Matrix + núcleo 3D + reloj) — no se toca
+│   ├── animations.js   ← ANIMACIÓN (Matrix + núcleo 3D + reloj) — no se toca
+│   └── contact.js      ← FORMULARIO (envío a contacto@adlor-ia.com vía FormSubmit)
 ├── assets/             ← pon aquí tu logo, favicon, imágenes
 └── README.md
 ```
@@ -50,8 +51,21 @@ Todo está en **`index.html`**, con comentarios `<!-- ... -->` que marcan cada z
 - **Botones:** los `<a class="btn">` / `<a class="btn ghost">`. Cambia el texto y el `href`.
 - **Métricas del hero:** los cuatro `<div class="kpi">`.
 - **Menú y dock:** los enlaces de `.menurow` y `.dockbtn` (arriba y a la izquierda).
-- **Contacto:** cambia `hola@adlor.ia` por tu correo real (aparece 2 veces).
+- **Contacto:** la banda CTA, el formulario y el pie usan `contacto@adlor-ia.com`.
+  Si algún día cambias de correo, actualízalo en `index.html` (mailto y textos)
+  y en `js/contact.js` (la constante `ENDPOINT` y el mensaje de respaldo).
 - **Barra inferior y pie:** textos de `.osbar` y `footer.foot`.
+
+## Formulario de contacto (FormSubmit)
+
+El formulario de `#contacto` envía los mensajes **sin backend** a `contacto@adlor-ia.com`
+usando [FormSubmit](https://formsubmit.co) en modo AJAX (la lógica vive en `js/contact.js`:
+validación en español, honeypot anti-bots y estados del botón).
+
+> ⚠️ **Activación única:** la PRIMERA vez que alguien envíe el formulario, FormSubmit
+> manda un correo de activación a `contacto@adlor-ia.com`. Hay que hacer clic en ese
+> enlace UNA vez; hasta entonces los mensajes no llegan. Recomendado: enviar un
+> mensaje de prueba tras el deploy y activar.
 
 ## Cómo agregar un proyecto
 
@@ -113,6 +127,7 @@ El diseño es HTML/CSS/JS puro, así que se porta fácil:
 
 ## Notas
 
-- 100% autocontenido: no llama a internet, funciona offline.
+- Sin dependencias, sin CDN, sin build. La única llamada externa es el envío del
+  formulario de contacto (FormSubmit); todo lo demás funciona offline.
 - Respeta `prefers-reduced-motion`: si el usuario desactiva animaciones, se muestra estático.
 - Responsive: en móvil el dock pasa abajo y el núcleo se reduce.
