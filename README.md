@@ -31,6 +31,8 @@ adlor-ia/
 │   ├── animations.js   ← ANIMACIÓN (Matrix + núcleo 3D + reloj) — no se toca
 │   └── contact.js      ← FORMULARIO (envío a contacto@adlor-ia.com vía FormSubmit)
 ├── assets/             ← pon aquí tu logo, favicon, imágenes
+├── supabase/
+│   └── 0001_visitors.sql  ← ESQUEMA de la tabla de visitantes (ya aplicado)
 └── README.md
 ```
 
@@ -66,6 +68,38 @@ validación en español, honeypot anti-bots y estados del botón).
 > manda un correo de activación a `contacto@adlor-ia.com`. Hay que hacer clic en ese
 > enlace UNA vez; hasta entonces los mensajes no llegan. Recomendado: enviar un
 > mensaje de prueba tras el deploy y activar.
+
+## Registro de visitantes (base de datos)
+
+Cada envío del formulario hace **dos cosas en paralelo**:
+
+1. **Registra al visitante** en Supabase (tabla `visitors`): nombre, correo,
+   **en qué producto o proyecto está interesado o qué quiere construir**,
+   el mensaje, y desde qué página escribió.
+2. **Avisa por correo** a `contacto@adlor-ia.com` vía FormSubmit.
+
+Basta con que **una** de las dos funcione para dar el envío por bueno: si el correo
+falla pero el registro entró, el mensaje no se perdió. Ese es el punto — los correos
+se pierden, la tabla no.
+
+| Dato | Dónde |
+|---|---|
+| Proyecto Supabase | `adlor-ia` · ref `bciiywoszpssauxvbkar` · us-east-1 |
+| Tabla | `public.visitors` |
+| Esquema versionado | `supabase/0001_visitors.sql` |
+| Configuración en el código | constantes `SUPABASE_URL` / `SUPABASE_KEY` en `js/contact.js` |
+
+**Ver los registros:** panel de Supabase → proyecto `adlor-ia` → *Table Editor* → `visitors`.
+Cada fila trae `status` (`nuevo`, `contactado`, `en conversacion`, `cliente`, `descartado`)
+y `notes`, para llevar el seguimiento a mano sin necesitar un CRM.
+
+**Sobre la clave que está en `js/contact.js`:** es **publicable a propósito**. La tabla
+tiene RLS y esa clave **solo puede INSERTAR** — no puede leer, ni editar, ni borrar.
+Está verificado: un `GET` con esa clave responde `401 permission denied`. La clave
+`service_role` **nunca** va en este repo.
+
+**El formulario no depende de la base de datos:** si Supabase estuviera caído, el correo
+de FormSubmit sigue saliendo y el visitante ve el mismo mensaje de éxito.
 
 ## Cómo agregar un proyecto
 
@@ -127,7 +161,7 @@ El diseño es HTML/CSS/JS puro, así que se porta fácil:
 
 ## Notas
 
-- Sin dependencias, sin CDN, sin build. La única llamada externa es el envío del
-  formulario de contacto (FormSubmit); todo lo demás funciona offline.
+- Sin dependencias, sin CDN, sin build. Las únicas llamadas externas son las dos del
+  envío del formulario (Supabase y FormSubmit); todo lo demás funciona offline.
 - Respeta `prefers-reduced-motion`: si el usuario desactiva animaciones, se muestra estático.
 - Responsive: en móvil el dock pasa abajo y el núcleo se reduce.

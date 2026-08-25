@@ -1,9 +1,22 @@
 /* =====================================================================
    ADLOR · IA — Formulario de contacto (js/contact.js)
    ---------------------------------------------------------------------
-   Envía los mensajes DIRECTO a contacto@adlor-ia.com sin backend,
-   usando el servicio gratuito FormSubmit en modo AJAX:
-     POST https://formsubmit.co/ajax/contacto@adlor-ia.com
+   Cada envío hace DOS cosas, en paralelo y sin backend propio:
+
+   1) REGISTRA al visitante en la base de datos (Supabase, tabla
+      `visitors`): nombre, correo, en qué producto o proyecto está
+      interesado o qué quiere construir, y desde qué página escribió.
+      Ese registro es la memoria: los correos se pierden, la tabla no.
+
+   2) AVISA por correo a contacto@adlor-ia.com con FormSubmit en modo
+      AJAX:  POST https://formsubmit.co/ajax/contacto@adlor-ia.com
+
+   Basta con que UNA de las dos funcione para dar el envío por bueno:
+   si el correo falla pero el registro entró, el mensaje no se perdió.
+
+   La clave de Supabase que va aquí es PUBLICABLE a propósito: la tabla
+   tiene RLS y esa clave SOLO puede INSERTAR. No puede leer, ni editar,
+   ni borrar. Los registros se consultan desde el panel de Supabase.
 
    ⚠ IMPORTANTE — FormSubmit: la PRIMERA vez que alguien envíe el
    formulario, FormSubmit manda un correo de activación a
@@ -32,6 +45,13 @@
 
   /* ---------- configuración ---------- */
   var ENDPOINT   = 'https://formsubmit.co/ajax/contacto@adlor-ia.com';
+
+  // Base de datos de visitantes (Supabase · proyecto "adlor-ia").
+  // Clave publicable: la tabla `visitors` solo acepta INSERT vía RLS.
+  var SUPABASE_URL = 'https://bciiywoszpssauxvbkar.supabase.co';
+  var SUPABASE_KEY = 'sb_publishable_CyW-I-BcQFgIo2Tz4chW-A_zV6K_Pae';
+  var REGISTRO_URL = SUPABASE_URL + '/rest/v1/visitors';
+
   var TIMEOUT_MS = 15000; // aborta el envío si tarda más de ~15 s
   var EMAIL_RE   = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/; // regex razonable, no RFC completo
 
@@ -96,6 +116,49 @@
       first = first || { input: inMensaje, msg: 'Cuéntame un poco más: el mensaje necesita al menos 10 caracteres.' };
     }
     return first;
+  }
+
+  /* ---------- registro en la base de datos ---------- */
+
+  // Corta un texto para respetar los límites de la tabla (evita un 400
+  // por un `check` de longitud cuando alguien pega un correo enorme).
+  function corta(txt, max) {
+    if (!txt) return null;
+    txt = String(txt);
+    return txt.length > max ? txt.slice(0, max) : txt;
+  }
+
+  // Inserta el visitante en Supabase. Devuelve una promesa que resuelve
+  // a true/false — nunca rechaza, para no tumbar el envío del correo.
+  function registrarVisitante(datos, signal) {
+    if (typeof fetch !== 'function') return Promise.resolve(false);
+
+    var fila = {
+      name:     corta(datos.nombre, 120),
+      email:    corta(datos.email, 200),
+      interest: corta(datos.interes, 120),
+      message:  corta(datos.mensaje, 4000),
+      source:   'adlor-ia.com',
+      page:     corta(location.href, 500),
+      referrer: corta(document.referrer, 500) || null
+    };
+
+    var opts = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': SUPABASE_KEY,
+        'Authorization': 'Bearer ' + SUPABASE_KEY,
+        // No pedimos que nos devuelva la fila: la clave pública no puede leerla.
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify(fila)
+    };
+    if (signal) opts.signal = signal;
+
+    return fetch(REGISTRO_URL, opts)
+      .then(function (res) { return res.ok; })
+      .catch(function () { return false; });
   }
 
   /* ---------- estados del botón de envío ---------- */
@@ -182,25 +245,36 @@
       return;
     }
 
-    fetch(ENDPOINT, opts)
+    // 3a) Registro en la base de datos (lo que no se puede perder)
+    var registro = registrarVisitante({
+      nombre: nombre, email: email, interes: interes, mensaje: mensaje
+    }, controller ? controller.signal : null);
+
+    // 3b) Aviso por correo. Nunca rechaza: devuelve true/false como el registro.
+    var aviso = fetch(ENDPOINT, opts)
       .then(function (res) {
         // FormSubmit responde JSON con { success: "true"/"false", message }
         return res.json()
           .catch(function () { return {}; })
           .then(function (data) {
-            var ok = res.ok && (data.success === true || data.success === 'true' || typeof data.success === 'undefined');
-            if (!ok) throw new Error(data.message || ('HTTP ' + res.status));
-            return data;
+            return res.ok && (data.success === true || data.success === 'true' || typeof data.success === 'undefined');
           });
       })
-      .then(function () {
-        // 4) Éxito: confirmar (texto plano — el correo lo escribe el usuario)
-        setStatus('ok', '✓ Mensaje enviado. Te respondo pronto a ' + email + '.');
-        form.reset();
-      })
-      .catch(function () {
-        // 5) Error de red / timeout / respuesta no-ok: respaldo con mailto
-        setStatus('err', ERR_HTML, true);
+      .catch(function () { return false; });
+
+    Promise.all([registro, aviso])
+      .then(function (r) {
+        var registrado = r[0], avisado = r[1];
+
+        // 4) Basta con que una de las dos haya entrado: el mensaje ya existe
+        //    en algún lado y Adrián lo va a ver.
+        if (registrado || avisado) {
+          setStatus('ok', '✓ Mensaje enviado. Te respondo pronto a ' + email + '.');
+          form.reset();
+        } else {
+          // 5) Ni base de datos ni correo: respaldo con mailto
+          setStatus('err', ERR_HTML, true);
+        }
       })
       // 6) Pase lo que pase: restaurar botón y limpiar el timeout.
       //    (Un .then tras el .catch equivale a .finally, pero también funciona
