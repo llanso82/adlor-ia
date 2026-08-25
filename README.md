@@ -4,9 +4,16 @@ Página principal de **Adlor · IA** (negro, núcleo 3D tipo reactor, lluvia "Ma
 chrome tipo sistema operativo). Sin dependencias, sin CDN, sin build.
 
 ## 🌐 En vivo
-- **Dominio:** https://adlor-ia.com  *(propaga el DNS; HTTPS automático de Vercel)*
-- **Vercel:** https://adlor-ia.vercel.app
+
+- **Vercel:** https://adlor-ia.vercel.app ← **aquí vive este sitio**
 - **Repo:** https://github.com/llanso82/adlor-ia
+
+> ⚠️ **`adlor-ia.com` todavía NO apunta aquí.** El dominio sigue servido por
+> **Hostinger** (`platform: hostinger` en las cabeceras) con el `index.html`
+> viejo, subido el 2 de febrero de 2026. Por eso quien entra a adlor-ia.com ve
+> la página anterior y no esta. El paso 3 de `DESPLIEGUE_VERCEL.md` (cambiar el
+> DNS en hPanel) quedó pendiente. Mientras no se haga, cada `git push`
+> actualiza `adlor-ia.vercel.app` pero **no** `adlor-ia.com`.
 
 ## 🔄 Cómo actualizar el sitio
 Este proyecto es **independiente** (su propio repo Git + Vercel). Para publicar cambios:
