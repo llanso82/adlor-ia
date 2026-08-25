@@ -1,0 +1,10 @@
+{
+  "name": "adlor-ia",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Sitio de Adlor · IA. El front es estático (sin build); esta dependencia existe solo para la función serverless api/chat.js.",
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.120.0"
+  }
+}

@@ -8,6 +8,14 @@ desktop.ini
 .idea/
 .claude/
 
+# Dependencias de la función serverless (Vercel las instala solo)
+node_modules/
+.vercel/
+
+# Variables de entorno — la llave de Anthropic NUNCA entra al repo
+.env
+.env.local
+
 # Logs y temporales
 *.log
 .cache/
