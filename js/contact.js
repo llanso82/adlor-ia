@@ -56,7 +56,7 @@
   var EMAIL_RE   = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/; // regex razonable, no RFC completo
 
   // Mensaje de respaldo si falla la red o el servicio (elStatus acepta innerHTML)
-  var ERR_HTML = 'No se pudo enviar. Escríbeme directo a ' +
+  var ERR_HTML = 'No se pudo enviar. Escríbenos directo a ' +
     '<a href="mailto:contacto@adlor-ia.com">contacto@adlor-ia.com</a>.';
 
   /* ---------- helpers de estado visual ---------- */
@@ -113,7 +113,7 @@
     }
     if (mensaje.length < 10) {
       markInvalid(inMensaje, true);
-      first = first || { input: inMensaje, msg: 'Cuéntame un poco más: el mensaje necesita al menos 10 caracteres.' };
+      first = first || { input: inMensaje, msg: 'Cuéntanos un poco más: el mensaje necesita al menos 10 caracteres.' };
     }
     return first;
   }
@@ -200,7 +200,7 @@
 
     // 2) Honeypot: si un bot lo llenó, simulamos éxito SIN enviar nada
     if (honey) {
-      setStatus('ok', '✓ Mensaje enviado. Te respondo pronto a ' + email + '.');
+      setStatus('ok', '✓ Mensaje recibido. Te contestamos pronto a ' + email + '.');
       form.reset();
       return;
     }
@@ -269,7 +269,7 @@
         // 4) Basta con que una de las dos haya entrado: el mensaje ya existe
         //    en algún lado y Adrián lo va a ver.
         if (registrado || avisado) {
-          setStatus('ok', '✓ Mensaje enviado. Te respondo pronto a ' + email + '.');
+          setStatus('ok', '✓ Mensaje recibido. Te contestamos pronto a ' + email + '.');
           form.reset();
         } else {
           // 5) Ni base de datos ni correo: respaldo con mailto
