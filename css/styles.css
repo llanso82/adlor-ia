@@ -352,6 +352,10 @@ footer.foot a:hover{text-shadow:0 0 14px rgba(66,230,255,.6)}
   animation:agEntra .22s ease both}
 @keyframes agEntra{from{opacity:0;transform:translateY(12px) scale(.985)}to{opacity:1;transform:none}}
 
+/* El atributo [hidden] pierde contra un display: de autor. Sin estas dos
+   reglas, el panel y los chips se ven abiertos desde que carga la página. */
+.ag-panel[hidden],.ag-sugerencias[hidden]{display:none}
+
 .ag-head{margin:0;padding:12px 14px;border-bottom:1px solid var(--line);flex:0 0 auto}
 .ag-live{margin-left:auto;display:inline-flex;align-items:center;gap:6px;
   font-family:var(--mono);font-size:9.5px;letter-spacing:.18em;color:var(--cyan)}
