@@ -12,18 +12,21 @@
        data: {"t":"fin"}                  terminó bien
        data: {"t":"error","msg":"..."}    algo falló (mensaje para el visitante)
 
-   La clave vive SOLO en la variable de entorno ANTHROPIC_API_KEY de
+   La clave vive SOLO en la variable de entorno OPENAI_API_KEY de
    Vercel. Nunca en el repo, nunca en el navegador.
    ===================================================================== */
 
-import Anthropic from "@anthropic-ai/sdk";
+import OpenAI from "openai";
 
 // Vercel: la respuesta puede tardar mientras se transmite
 export const config = { maxDuration: 60 };
 
 /* ---------------------- configuración ---------------------- */
 
-const MODELO = "claude-opus-5";
+// Modelo barato de OpenAI. El conocimiento de los proyectos NO vive en el
+// modelo: vive en SISTEMA (más abajo), así que cualquier modelo lo tiene.
+// Alternativas más listas pero más caras: "gpt-4.1-mini", "gpt-4.1".
+const MODELO = "gpt-4o-mini";
 const MAX_TOKENS = 1500; // respuestas de widget: cortas a propósito
 const MAX_MENSAJES = 20; // turnos que aceptamos por conversación
 const MAX_CARACTERES = 2000; // por mensaje del visitante
@@ -167,7 +170,7 @@ o a escribir a contacto@adlor-ia.com. Una sola vez, sin insistir.`;
    propio mapa, así que N peticiones concurrentes ven N contadores vacíos.
    Frena al visitante que hace doble clic; no frena a quien quiera hacer daño.
    El único tope que de verdad protege la factura es el límite de gasto
-   mensual en la consola de Anthropic. Ponlo. */
+   mensual en la consola de OpenAI (Settings → Limits). Ponlo. */
 
 const visitas = new Map();
 const VENTANA_MS = 5 * 60 * 1000;
@@ -237,7 +240,7 @@ export default async function handler(req, res) {
     return;
   }
 
-  if (!process.env.ANTHROPIC_API_KEY) {
+  if (!process.env.OPENAI_API_KEY) {
     // Falta la llave en Vercel: se dice claro en vez de fallar en silencio
     res.status(503).json({ error: "sin_llave" });
     return;
@@ -308,7 +311,7 @@ export default async function handler(req, res) {
     "X-Accel-Buffering": "no",
   });
 
-  const client = new Anthropic();
+  const client = new OpenAI();
   let completa = "";
 
   // Si el visitante cuelga, se corta la generación. Sin esto, quien abriera
@@ -322,32 +325,41 @@ export default async function handler(req, res) {
   });
 
   try {
-    const stream = client.beta.messages.stream({
-      model: MODELO,
-      max_tokens: MAX_TOKENS,
-      system: SISTEMA,
-      messages,
-      output_config: { effort: "low" }, // widget: prioriza latencia
-      // Si un clasificador declina la petición, la API la reintenta sola en
-      // otro modelo dentro de la misma llamada, en vez de devolver nada.
-      betas: ["server-side-fallback-2026-07-01"],
-      fallbacks: "default",
-    }, { signal: ac.signal });
+    // El conocimiento de los proyectos entra como mensaje `system`, delante
+    // del historial del visitante. El resto (`messages`) ya viene con roles
+    // user/assistant, que es justo lo que espera la API de OpenAI.
+    const stream = await client.chat.completions.create(
+      {
+        model: MODELO,
+        max_tokens: MAX_TOKENS,
+        stream: true,
+        stream_options: { include_usage: true }, // el uso llega en el último chunk
+        messages: [{ role: "system", content: SISTEMA }, ...messages],
+      },
+      { signal: ac.signal },
+    );
 
-    for await (const evento of stream) {
-      if (
-        evento.type === "content_block_delta" &&
-        evento.delta.type === "text_delta"
-      ) {
-        completa += evento.delta.text;
-        sse(res, { t: "delta", text: evento.delta.text });
+    let modeloReal = MODELO;
+    let inTok = null;
+    let outTok = null;
+
+    for await (const chunk of stream) {
+      if (chunk.model) modeloReal = chunk.model;
+      // El chunk final trae `usage` y `choices` vacío
+      if (chunk.usage) {
+        inTok = chunk.usage.prompt_tokens ?? null;
+        outTok = chunk.usage.completion_tokens ?? null;
+      }
+      const trozo = chunk.choices?.[0]?.delta?.content;
+      if (trozo) {
+        completa += trozo;
+        sse(res, { t: "delta", text: trozo });
       }
     }
 
-    const final = await stream.finalMessage();
-
-    if (final.stop_reason === "refusal") {
-      // La cadena completa declinó: se dice, no se finge una respuesta
+    if (!completa) {
+      // El modelo no devolvió texto (filtro de contenido o declinación):
+      // se dice, no se finge una respuesta.
       sse(res, {
         t: "error",
         msg: "No puedo ayudarte con eso. Escríbenos a contacto@adlor-ia.com y lo vemos.",
@@ -364,9 +376,9 @@ export default async function handler(req, res) {
       question: corta(pregunta, 2000),
       answer: corta(completa, 8000),
       page: corta(cuerpo.page, 500),
-      model: final.model || MODELO,
-      input_tokens: final.usage?.input_tokens ?? null,
-      output_tokens: final.usage?.output_tokens ?? null,
+      model: modeloReal,
+      input_tokens: inTok,
+      output_tokens: outTok,
     });
 
     res.end();
