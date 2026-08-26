@@ -3,18 +3,12 @@
    ---------------------------------------------------------------------
    NO necesitas tocar este archivo para cambiar el contenido de la web.
    Aquí viven: la lluvia "Matrix" blanca de fondo, el núcleo 3D tipo
-   reactor, el reloj/uptime en vivo y la navegación del dock.
+   reactor, el reloj en vivo y la navegación del dock.
    Respeta "prefers-reduced-motion" (accesibilidad).
    ===================================================================== */
 (function(){
   var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   var DPR = Math.min(window.devicePixelRatio||1, 2);
-
-  /* ---------- uptime (contador de sesión) ---------- */
-  var t0=0, up=document.getElementById('uptime');
-  function fmt(s){var h=Math.floor(s/3600),m=Math.floor(s%3600/60),x=Math.floor(s%60);
-    return [h,m,x].map(function(n){return (n<10?'0':'')+n;}).join(':');}
-  setInterval(function(){t0++;if(up)up.textContent=fmt(3600*7+t0);},1000);
 
   /* =========================================================
      MATRIX RAIN — fondo de página completa, glifos BLANCOS
