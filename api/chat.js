@@ -12,8 +12,8 @@
        data: {"t":"fin"}                  terminó bien
        data: {"t":"error","msg":"..."}    algo falló (mensaje para el visitante)
 
-   La clave vive SOLO en la variable de entorno OPENAI_API_KEY de
-   Vercel. Nunca en el repo, nunca en el navegador.
+   La clave vive SOLO en la variable de entorno EDLOR de Vercel
+   (la llave de OpenAI). Nunca en el repo, nunca en el navegador.
    ===================================================================== */
 
 import OpenAI from "openai";
@@ -240,7 +240,7 @@ export default async function handler(req, res) {
     return;
   }
 
-  if (!process.env.OPENAI_API_KEY) {
+  if (!process.env.EDLOR) {
     // Falta la llave en Vercel: se dice claro en vez de fallar en silencio
     res.status(503).json({ error: "sin_llave" });
     return;
@@ -311,7 +311,8 @@ export default async function handler(req, res) {
     "X-Accel-Buffering": "no",
   });
 
-  const client = new OpenAI();
+  // La llave de OpenAI vive en la variable EDLOR (nombre propio del proyecto)
+  const client = new OpenAI({ apiKey: process.env.EDLOR });
   let completa = "";
 
   // Si el visitante cuelga, se corta la generación. Sin esto, quien abriera
