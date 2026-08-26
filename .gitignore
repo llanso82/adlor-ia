@@ -13,8 +13,7 @@ node_modules/
 .vercel/
 
 # Variables de entorno — la llave de Anthropic NUNCA entra al repo
-.env
-.env.local
+.env*
 
 # Logs y temporales
 *.log

@@ -28,14 +28,22 @@ const MAX_TOKENS = 1500; // respuestas de widget: cortas a propósito
 const MAX_MENSAJES = 20; // turnos que aceptamos por conversación
 const MAX_CARACTERES = 2000; // por mensaje del visitante
 
-// Desde dónde aceptamos peticiones (evita que el endpoint se use desde otro sitio)
-const ORIGENES = [
-  "https://adlor-ia.com",
-  "https://www.adlor-ia.com",
-  "https://adlor-ia.vercel.app",
-  "http://localhost:8000",
-  "http://localhost:3000",
-];
+// Presupuesto total de caracteres del historial. El tope por mensaje no basta:
+// veinte mensajes de 2000 caracteres son mucho más caros que uno.
+const MAX_CARACTERES_TOTAL = 12000;
+
+// Desde dónde aceptamos peticiones. En producción NO va localhost: si estuviera,
+// bastaría con mandar `Origin: http://localhost:3000` para saltarse el control.
+const EN_PRODUCCION = process.env.VERCEL_ENV === "production";
+const ORIGENES = EN_PRODUCCION
+  ? ["https://adlor-ia.com", "https://www.adlor-ia.com", "https://adlor-ia.vercel.app"]
+  : [
+      "https://adlor-ia.com",
+      "https://www.adlor-ia.com",
+      "https://adlor-ia.vercel.app",
+      "http://localhost:8000",
+      "http://localhost:3000",
+    ];
 
 // Bitácora en Supabase (misma tabla-patrón que `visitors`: solo INSERT)
 const SUPABASE_URL = "https://bciiywoszpssauxvbkar.supabase.co";
@@ -154,8 +162,11 @@ formulario de la sección Contacto (indicando qué producto o proyecto le intere
 o a escribir a contacto@adlor-ia.com. Una sola vez, sin insistir.`;
 
 /* ---------------------- límite de uso por IP ---------------------- */
-/* Imperfecto en serverless (la memoria muere con la instancia), pero
-   frena el abuso barato sin agregar infraestructura. */
+/* OJO, esto NO es un control de abuso. En serverless cada instancia trae su
+   propio mapa, así que N peticiones concurrentes ven N contadores vacíos.
+   Frena al visitante que hace doble clic; no frena a quien quiera hacer daño.
+   El único tope que de verdad protege la factura es el límite de gasto
+   mensual en la consola de Anthropic. Ponlo. */
 
 const visitas = new Map();
 const VENTANA_MS = 5 * 60 * 1000;
@@ -167,7 +178,13 @@ function pasaLimite(ip) {
   if (previas.length >= MAX_POR_VENTANA) return false;
   previas.push(ahora);
   visitas.set(ip, previas);
-  if (visitas.size > 5000) visitas.clear(); // techo de memoria
+  // Techo de memoria: se podan las entradas caducadas, NO se vacía el mapa.
+  // Un `clear()` le regalaba al atacante un reinicio del contador a demanda.
+  if (visitas.size > 5000) {
+    for (const [k, v] of visitas) {
+      if (!v.length || ahora - v[v.length - 1] > VENTANA_MS) visitas.delete(k);
+    }
+  }
   return true;
 }
 
@@ -209,9 +226,12 @@ export default async function handler(req, res) {
     return;
   }
 
-  // Que la llamada venga del sitio, no de un script ajeno
+  // Que la llamada venga del sitio, no de un script ajeno.
+  // Sin el `!ORIGENES.includes` a secas, la cabecera AUSENTE pasaba: un curl
+  // sin `Origin` llegaba hasta el modelo. `Origin` solo la pone el navegador,
+  // así que exigirla es justamente lo que deja fuera a los scripts.
   const origen = req.headers.origin || "";
-  if (origen && !ORIGENES.includes(origen)) {
+  if (!ORIGENES.includes(origen)) {
     res.status(403).json({ error: "Origen no permitido" });
     return;
   }
@@ -222,18 +242,28 @@ export default async function handler(req, res) {
     return;
   }
 
+  // x-real-ip lo pone el proxy y es un valor único; el primer elemento de
+  // x-forwarded-for es el extremo que el cliente puede prefijar.
   const ip =
-    (req.headers["x-forwarded-for"] || "").split(",")[0].trim() || "sin-ip";
+    req.headers["x-real-ip"] ||
+    (req.headers["x-forwarded-for"] || "").split(",").pop().trim() ||
+    "sin-ip";
   if (!pasaLimite(ip)) {
     res.status(429).json({ error: "demasiadas" });
     return;
   }
 
   // ---- validar la entrada ----
-  const cuerpo = typeof req.body === "string" ? JSON.parse(req.body) : req.body || {};
+  let cuerpo;
+  try {
+    cuerpo = typeof req.body === "string" ? JSON.parse(req.body) : req.body || {};
+  } catch {
+    res.status(400).json({ error: "Cuerpo mal formado" });
+    return;
+  }
   const entrada = Array.isArray(cuerpo.messages) ? cuerpo.messages : [];
 
-  const messages = entrada
+  const limpios = entrada
     .filter(
       (m) =>
         m &&
@@ -244,13 +274,26 @@ export default async function handler(req, res) {
     .slice(-MAX_MENSAJES)
     .map((m) => ({ role: m.role, content: m.content.slice(0, MAX_CARACTERES) }));
 
+  // Presupuesto total: se conservan los turnos más recientes hasta llenarlo.
+  // Sin esto, veinte mensajes en el tope individual multiplican el coste.
+  const messages = [];
+  let gastados = 0;
+  for (let i = limpios.length - 1; i >= 0; i--) {
+    gastados += limpios[i].content.length;
+    if (gastados > MAX_CARACTERES_TOTAL && messages.length) break;
+    messages.unshift(limpios[i]);
+  }
+
   if (!messages.length || messages[messages.length - 1].role !== "user") {
     res.status(400).json({ error: "Falta el mensaje del visitante" });
     return;
   }
 
   const pregunta = messages[messages.length - 1].content;
-  const sessionId = corta(cuerpo.session_id, 64) || "sin-sesion-000000";
+  // La tabla `chats` exige entre 8 y 64 caracteres. Un id corto hacía que el
+  // INSERT devolviera 400 y `anotar` se lo tragara en silencio.
+  const sessionId = (corta(cuerpo.session_id, 64) || "").padEnd(8, "0") ||
+    "sin-sesion-000000";
   const turno = Math.min(
     Math.max(messages.filter((m) => m.role === "user").length, 1),
     200,
@@ -267,6 +310,16 @@ export default async function handler(req, res) {
   const client = new Anthropic();
   let completa = "";
 
+  // Si el visitante cuelga, se corta la generación. Sin esto, quien abriera
+  // peticiones y cortara la conexión al instante seguía facturando los 1500
+  // tokens completos sin descargar un solo byte: el abuso más barato posible.
+  const ac = new AbortController();
+  let colgado = false;
+  req.on("close", () => {
+    colgado = true;
+    ac.abort();
+  });
+
   try {
     const stream = client.beta.messages.stream({
       model: MODELO,
@@ -278,7 +331,7 @@ export default async function handler(req, res) {
       // otro modelo dentro de la misma llamada, en vez de devolver nada.
       betas: ["server-side-fallback-2026-07-01"],
       fallbacks: "default",
-    });
+    }, { signal: ac.signal });
 
     for await (const evento of stream) {
       if (
@@ -302,8 +355,8 @@ export default async function handler(req, res) {
       sse(res, { t: "fin" });
     }
 
-    res.end();
-
+    // La bitácora va ANTES de cerrar: en Vercel la instancia puede congelarse
+    // en cuanto termina la respuesta, y un await posterior se pierde callado.
     await anotar({
       session_id: sessionId,
       turn: turno,
@@ -314,8 +367,24 @@ export default async function handler(req, res) {
       input_tokens: final.usage?.input_tokens ?? null,
       output_tokens: final.usage?.output_tokens ?? null,
     });
+
+    res.end();
   } catch (err) {
     console.error("[api/chat]", err?.message || err);
+
+    // Un turno que falla igual quemó tokens. Si no se anota, la bitácora
+    // sub-reporta justo el tráfico abusivo, que es el que hay que ver.
+    await anotar({
+      session_id: sessionId,
+      turn: turno,
+      question: corta(pregunta, 2000),
+      answer: corta(completa, 8000) || null,
+      page: corta(cuerpo.page, 500),
+      model: colgado ? "abortado:visitante-colgo" : "error",
+    });
+
+    if (colgado) return; // el visitante ya no está escuchando
+
     // La cabecera ya salió, así que el error viaja por el mismo stream
     sse(res, {
       t: "error",
