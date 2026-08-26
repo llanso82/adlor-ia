@@ -75,6 +75,8 @@
   // Marca/desmarca el contenedor .cf-field de un campo como inválido
   function markInvalid(input, invalid) {
     if (!input) return;
+    // aria-invalid va en el input: la clase solo pinta, no comunica
+    input.setAttribute('aria-invalid', invalid ? 'true' : 'false');
     var field = input.closest ? input.closest('.cf-field') : null;
     if (!field) return;
     if (invalid) field.classList.add('invalid');
@@ -200,7 +202,7 @@
 
     // 2) Honeypot: si un bot lo llenó, simulamos éxito SIN enviar nada
     if (honey) {
-      setStatus('ok', '✓ Mensaje recibido. Te contestamos pronto a ' + email + '.');
+      setStatus('ok', '✓ Mensaje recibido. Te respondemos pronto al correo ' + email + '.');
       form.reset();
       return;
     }
@@ -257,7 +259,12 @@
         return res.json()
           .catch(function () { return {}; })
           .then(function (data) {
-            return res.ok && (data.success === true || data.success === 'true' || typeof data.success === 'undefined');
+            // ANTES aceptaba `undefined` como éxito, así que cualquier 200 que
+            // no fuera el JSON de FormSubmit — su página de "activación
+            // pendiente", una interstitial de proxy, un cambio de contrato —
+            // se le anunciaba al visitante como "Mensaje recibido". Leads
+            // perdidos sin ninguna señal. Ahora se exige la confirmación.
+            return res.ok && (data.success === true || data.success === 'true');
           });
       })
       .catch(function () { return false; });
@@ -269,7 +276,7 @@
         // 4) Basta con que una de las dos haya entrado: el mensaje ya existe
         //    en algún lado y Adrián lo va a ver.
         if (registrado || avisado) {
-          setStatus('ok', '✓ Mensaje recibido. Te contestamos pronto a ' + email + '.');
+          setStatus('ok', '✓ Mensaje recibido. Te respondemos pronto al correo ' + email + '.');
           form.reset();
         } else {
           // 5) Ni base de datos ni correo: respaldo con mailto

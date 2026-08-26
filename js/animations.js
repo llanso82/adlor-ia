@@ -13,7 +13,9 @@
   /* =========================================================
      MATRIX RAIN — fondo de página completa, glifos BLANCOS
      ========================================================= */
-  var mx=document.getElementById('matrix'), mc=mx.getContext('2d');
+  var mx=document.getElementById('matrix');
+  if(!mx || !mx.getContext) return;   // sin canvas no hay nada que animar,
+  var mc=mx.getContext('2d');         // pero el resto del archivo debe seguir vivo
   var glyphs='アカサタナハマヤラワ0123456789ABCDEFｦｧｨ<>{}[]#/*+=$%&ADLOR'.split('');
   var cols, drops, fs, mw, mh;
   function mxSize(){
@@ -26,7 +28,7 @@
     for(var i=0;i<cols;i++) drops[i]=Math.random()*-60;
     mc.fillStyle='#04060A';mc.fillRect(0,0,mw,mh);
   }
-  mxSize(); addEventListener('resize', mxSize);
+  mxSize();
 
   function mxFrame(){
     // fade to dark → trails
@@ -67,8 +69,27 @@
     cv.height=Math.max(1,Math.round(h*DPR));
   }
   coreSize();
-  addEventListener('resize', coreSize);
-  addEventListener('load', coreSize);            // re-mide cuando el layout ya está listo
+
+  /* Asignar cv.width BORRA el bitmap del canvas, aunque el valor sea el mismo.
+     En modo normal da igual porque el siguiente frame repinta; con movimiento
+     reducido no hay siguiente frame, y el nucleo se quedaba en blanco en cuanto
+     disparaba 'load' o un 'resize'. Por eso el repintado va atado al re-medido. */
+  function remide(){
+    mxSize();
+    coreSize();
+    if(reduce) pintaEstatico();
+  }
+
+  // Arrastrar el borde de la ventana disparaba decenas de repintados por
+  // segundo a pantalla completa; con la bandera va uno por frame.
+  var pendiente=false;
+  function alRedimensionar(){
+    if(pendiente) return;
+    pendiente=true;
+    requestAnimationFrame(function(){ pendiente=false; remide(); });
+  }
+  addEventListener('resize', alRedimensionar);
+  addEventListener('load', remide);   // re-mide cuando el layout ya está listo
 
   var CY='66,230,255';
   function rnd(a,b){return a+Math.random()*(b-a);}
@@ -178,13 +199,17 @@
   }
 
   /* ---------- run ---------- */
-  if(reduce){
-    // static: paint matrix once + a single core frame
+  // Un solo fotograma de todo, para quien pide movimiento reducido.
+  function pintaEstatico(){
     mc.fillStyle='#04060A';mc.fillRect(0,0,mw,mh);
     mc.font=fs+'px ui-monospace, monospace';mc.textBaseline='top';
     for(var i=0;i<cols;i++){mc.fillStyle='rgba(180,205,230,0.20)';
       mc.fillText(glyphs[(Math.random()*glyphs.length)|0], i*fs, Math.random()*mh);}
     drawCore(2600);
+  }
+
+  if(reduce){
+    pintaEstatico();
   }else{
     function loop(ts){ mxFrame(); if(cv.width<=2) coreSize(); drawCore(ts); requestAnimationFrame(loop); }
     requestAnimationFrame(loop);
@@ -200,10 +225,17 @@
          la hacen los propios enlaces href="#seccion") ---- */
   [].slice.call(document.querySelectorAll('.dockbtn')).forEach(function(b){
     b.addEventListener('click',function(){
-      document.querySelectorAll('.dockbtn.active').forEach(function(x){x.classList.remove('active');});
-      b.classList.add('active');
+      marcaActivo(b);
     });
   });
+
+  // La seccion actual era solo un color. aria-current la hace audible.
+  function marcaActivo(btn){
+    document.querySelectorAll('.dockbtn.active').forEach(function(x){
+      x.classList.remove('active'); x.removeAttribute('aria-current');
+    });
+    btn.classList.add('active'); btn.setAttribute('aria-current','true');
+  }
 
   /* ---- resalta en el dock la sección visible al hacer scroll ---- */
   var secciones = [].slice.call(document.querySelectorAll('.section[id]'));
@@ -213,8 +245,7 @@
         if(!en.isIntersecting) return;
         var btn=document.querySelector('.dockbtn[data-target="#'+en.target.id+'"]');
         if(!btn) return;
-        document.querySelectorAll('.dockbtn.active').forEach(function(x){x.classList.remove('active');});
-        btn.classList.add('active');
+        marcaActivo(btn);
       });
     },{rootMargin:'-40% 0px -55% 0px'});
     secciones.forEach(function(s){obs.observe(s);});

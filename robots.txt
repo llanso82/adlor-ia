@@ -1,0 +1,8 @@
+# adlor-ia.com
+User-agent: *
+Allow: /
+
+# La función del agente no es contenido: no hay nada que indexar ahí
+Disallow: /api/
+
+Sitemap: https://adlor-ia.com/sitemap.xml

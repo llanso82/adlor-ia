@@ -3,24 +3,75 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Adlor — Software e IA que hace el trabajo que te frena</title>
-  <meta name="description" content="Fundada por Adrián Zepeda y Lorena Zavala, Adlor se especializa desde 2021 en inteligencia artificial y proyectos digitales: agentes de IA, soluciones web con base de datos y CRM, automatización de procesos, call centers con agentes de voz y WhatsApp, y video generado con IA.">
+  <title>Adlor — Software e IA que hacen el trabajo que te frena</title>
+  <meta name="description" content="Software y agentes de IA que asumen el trabajo repetitivo de tu negocio: automatización, CRM, call centers con voz y WhatsApp. México, desde 2021.">
   <meta name="theme-color" content="#04060A">
 
   <!-- Open Graph (cómo se ve el enlace al compartirlo) -->
-  <meta property="og:title" content="Adlor — Software e IA que hace el trabajo que te frena">
-  <meta property="og:description" content="Inteligencia artificial y proyectos digitales desde 2021. Construimos un ecosistema de IA para ofrecer servicios automatizados, personalizados y de primer mundo, sin importar la industria.">
+  <meta property="og:title" content="Adlor — Software e IA que hacen el trabajo que te frena">
+  <meta property="og:description" content="Software y agentes de IA que asumen el trabajo repetitivo de tu negocio. México, desde 2021.">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="es_MX">
+  <meta property="og:url" content="https://adlor-ia.com/">
+  <meta property="og:site_name" content="Adlor">
+  <meta property="og:image" content="https://adlor-ia.com/assets/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Adlor — estudio de software e IA aplicada, México">
 
-  <!-- Favicon (logo de Adlor sobre cuadro oscuro) -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Adlor — Software e IA que hacen el trabajo que te frena">
+  <meta name="twitter:description" content="Software y agentes de IA que asumen el trabajo repetitivo de tu negocio. México, desde 2021.">
+  <meta name="twitter:image" content="https://adlor-ia.com/assets/og-image.png">
+
+  <!-- El sitio responde igual en el apex, en www y en el dominio de Vercel.
+       Sin esto, Google los cuenta como tres páginas distintas. -->
+  <link rel="canonical" href="https://adlor-ia.com/">
+
+  <!-- Favicon (logo de Adlor sobre cuadro oscuro).
+       iOS ignora el SVG en apple-touch-icon: ahí hace falta un PNG. -->
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
-  <link rel="apple-touch-icon" href="assets/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
 
   <!-- El sistema de diseño completo vive en css/styles.css -->
   <link rel="stylesheet" href="css/styles.css">
+
+  <!-- Datos estructurados: solo hechos que ya están en la página -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Adlor",
+    "alternateName": "Adlor IA",
+    "url": "https://adlor-ia.com/",
+    "logo": "https://adlor-ia.com/assets/logo.svg",
+    "image": "https://adlor-ia.com/assets/og-image.png",
+    "email": "contacto@adlor-ia.com",
+    "description": "Estudio de software e inteligencia artificial aplicada. Agentes de IA, soluciones web con base de datos y CRM, automatizaci\u00f3n de procesos, call centers con agentes de voz y WhatsApp, y video generado con IA.",
+    "foundingDate": "2021",
+    "founder": [
+      { "@type": "Person", "name": "Adri\u00e1n Zepeda" },
+      { "@type": "Person", "name": "Lorena Zavala" }
+    ],
+    "address": { "@type": "PostalAddress", "addressCountry": "MX" },
+    "areaServed": [
+      { "@type": "Place", "name": "M\u00e9xico" },
+      { "@type": "Place", "name": "Am\u00e9rica Latina" }
+    ],
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "contactType": "sales",
+      "email": "contacto@adlor-ia.com",
+      "availableLanguage": ["es"]
+    }
+  }
+  </script>
 </head>
 <body>
+
+<!-- Primer tabulador de la página: sin esto hay 34 paradas antes del contenido -->
+<a class="skip" href="#contenido">Ir al contenido</a>
 
 <!-- ================================================================
      FONDO ANIMADO — no se toca (lluvia Matrix + brillos + viñeta)
@@ -37,17 +88,17 @@
          1) copia un <a class="dockbtn"> aquí (con su href e icono)
          2) crea abajo un <section class="section" id="...">
        ================================================================ -->
-  <aside class="osdock" role="navigation" aria-label="Navegación">
+  <aside class="osdock">
     <!-- Logo de Adlor (blanco) -->
     <div class="dock-logo" title="Adlor">
-      <svg class="logo-mark" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" role="img" aria-label="Adlor">
+      <svg class="logo-mark" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true">
         <rect x="8.5" y="8.5" width="83" height="83"/>
         <line x1="8.5" y1="61" x2="91.5" y2="61"/>
         <line x1="85" y1="8.5" x2="41" y2="91.5"/>
       </svg>
     </div>
 
-    <nav class="dock-nav">
+    <nav class="dock-nav" aria-label="Secciones">
       <a class="dockbtn active" href="#inicio" data-target="#inicio" aria-label="Inicio">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5 12 4l9 6.5"/><path d="M5 9.5V20h14V9.5"/><path d="M10 20v-5h4v5"/></svg><span class="tip">Inicio</span></a>
       <a class="dockbtn" href="#proyectos" data-target="#proyectos" aria-label="Proyectos">
@@ -64,8 +115,6 @@
 
     <div class="dock-foot">
       <div class="dock-sep"></div>
-      <a class="dockbtn" href="#contacto" aria-label="Ajustes">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5.2 5.2l2.1 2.1M16.7 16.7l2.1 2.1M18.8 5.2l-2.1 2.1M7.3 16.7l-2.1 2.1"/></svg><span class="tip">Ajustes</span></a>
       <span class="avatar" title="Adlor">AD</span>
     </div>
   </aside>
@@ -75,28 +124,28 @@
        ================================================================ -->
   <header class="top">
     <div class="crumb">
-      <svg class="crumb-logo" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="square" stroke-linejoin="miter" role="img" aria-label="Adlor">
+      <svg class="crumb-logo" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true">
         <rect x="8.5" y="8.5" width="83" height="83"/>
         <line x1="8.5" y1="61" x2="91.5" y2="61"/>
         <line x1="85" y1="8.5" x2="41" y2="91.5"/>
       </svg>
       <b>Adlor</b> <span class="sl">/</span> <span>Inteligencia Artificial</span>
     </div>
-    <div class="menurow">
+    <nav class="menurow" aria-label="Principal">
       <a class="on" href="#inicio">Inicio</a>
       <a href="#proyectos">Proyectos</a>
       <a href="#servicios">Servicios</a>
       <a href="#proceso">Proceso</a>
       <a href="#nosotros">Nosotros</a>
       <a href="#contacto">Contacto</a>
-    </div>
+    </nav>
     <div class="telem">
       <span class="kv"><span class="status-dot"></span><b>EN LÍNEA</b></span>
       <span class="clock tnum" id="clock">--:--:--</span>
     </div>
   </header>
 
-  <div class="wrap">
+  <main class="wrap" id="contenido">
 
     <!-- ============================================================
          HERO — titular principal + núcleo 3D
@@ -133,30 +182,30 @@
     <!-- ============================================================
          SECCIÓN: PROYECTOS
          Para agregar un proyecto: copia una <article class="card">.
-         Estados: "En vivo" → .pill.working · "En desarrollo" → .pill.wait
+         Estados: "En vivo" / "En uso" → .pill.working · "En desarrollo" → .pill.wait
                   "Prototipo" → .pill.paused
          ============================================================ -->
     <section class="section" id="proyectos">
       <div class="win-head">
         <span class="win-dots"><i></i><i></i><i></i></span>
-        <span class="win-title"><b>Proyectos</b> &nbsp;·&nbsp; adlor://proyectos</span>
-        <span class="win-title" style="margin-left:auto">13 ACTIVOS</span>
+        <h2 class="win-title"><b>Proyectos</b> &nbsp;·&nbsp; adlor://proyectos</h2>
+        <span class="win-title" style="margin-left:auto">13 PROYECTOS</span>
       </div>
 
       <div class="grid">
         <!-- Numbrica — EN VIVO (numbrica.com) · proyecto insignia -->
         <article class="card"><div class="glow"></div>
           <div class="row1"><div class="face">NB</div>
-            <div class="who"><div class="name">Numbrica</div><div class="role">Astrología · SaaS</div></div>
+            <div class="who"><h3 class="name">Numbrica</h3><div class="role">Astrología · SaaS</div></div>
             <span class="pill working" style="margin-left:auto"><i></i>En vivo</span></div>
-          <p class="act">Astrología occidental, numerología y BaZi calculadas con <b>efemérides reales</b>, no con plantillas. Guías de vida, pareja y negocio, con suscripción y newsletter. Es nuestro producto insignia y el más maduro.</p>
+          <p class="act">Astrología occidental, numerología y BaZi, con <b>efemérides reales</b> y no con plantillas. Guías de vida, pareja y negocio, con suscripción y newsletter. Es nuestro producto insignia y el más maduro.</p>
           <div class="foot"><span class="metric">STACK · <b>Next.js · Stripe</b></span><a class="metric" href="https://numbrica.com" target="_blank" rel="noopener" style="color:var(--cyan);text-decoration:none">Visitar →</a></div>
         </article>
 
         <!-- A-Val — EN VIVO (aval.adlorflow.com) -->
         <article class="card"><div class="glow"></div>
           <div class="row1"><div class="face">AV</div>
-            <div class="who"><div class="name">A-Val</div><div class="role">Personas · Evaluación</div></div>
+            <div class="who"><h3 class="name">A-Val</h3><div class="role">Personas · Evaluación</div></div>
             <span class="pill working" style="margin-left:auto"><i></i>En vivo</span></div>
           <p class="act">Evaluación en línea que identifica <b>los valores que guían las decisiones de una persona</b>. La usan tanto individuos como organizaciones que necesitan entender a su equipo antes de reestructurarlo.</p>
           <div class="foot"><span class="metric">STACK · <b>Next.js · Tailwind</b></span><a class="metric" href="https://aval.adlorflow.com/" target="_blank" rel="noopener" style="color:var(--cyan);text-decoration:none">Visitar →</a></div>
@@ -165,16 +214,16 @@
         <!-- Jubílate Mejor — EN VIVO (jubilatemejor.com) · plataforma, no sitio -->
         <article class="card"><div class="glow"></div>
           <div class="row1"><div class="face">JM</div>
-            <div class="who"><div class="name">Jubílate Mejor</div><div class="role">CRM · Capacitación · Voz IA</div></div>
+            <div class="who"><h3 class="name">Jubílate Mejor</h3><div class="role">CRM · Capacitación · Voz IA</div></div>
             <span class="pill working" style="margin-left:auto"><i></i>En vivo</span></div>
-          <p class="act">El negocio de pensionados operando sobre una sola plataforma: <b>CRM de leads y equipo comercial</b>, solicitudes de crédito, academia de asesores y centro de conocimiento con IA. En construcción: un <b>call center 100% automatizado</b> con agentes de voz y WhatsApp que llaman, califican y transfieren a un asesor humano cuando corresponde.</p>
+          <p class="act">El negocio de pensionados operando sobre una sola plataforma: <b>CRM de leads y equipo comercial</b>, solicitudes de crédito, academia de asesores y centro de conocimiento con IA. En construcción: un <b>call center con agentes de voz y WhatsApp</b> que llaman, califican y transfieren a un asesor humano cuando corresponde.</p>
           <div class="foot"><span class="metric">STACK · <b>Next.js · Prisma · Voz IA</b></span><a class="metric" href="https://jubilatemejor.com/" target="_blank" rel="noopener" style="color:var(--cyan);text-decoration:none">Visitar →</a></div>
         </article>
 
         <!-- Aurora-Fi — EN USO (herramienta local, sin sitio público) -->
         <article class="card"><div class="glow"></div>
           <div class="row1"><div class="face">AF</div>
-            <div class="who"><div class="name">Aurora-Fi</div><div class="role">Riesgo · Cuantitativo</div></div>
+            <div class="who"><h3 class="name">Aurora-Fi</h3><div class="role">Riesgo · Cuantitativo</div></div>
             <span class="pill working" style="margin-left:auto"><i></i>En uso</span></div>
           <p class="act">Gestión del riesgo con <b>evidencia medida</b>. Cuantifica el riesgo del mercado y de cada activo, y expone el origen de cada cifra: fuente, fecha real y grado de confianza. Lo que no se sabe se declara como hueco, <b>nunca se rellena</b>. No predice: mide.</p>
           <div class="foot"><span class="metric">STACK · <b>Python · FastAPI · pandas</b></span><span class="metric">Herramienta interna</span></div>
@@ -183,16 +232,16 @@
         <!-- Adlor Risk Management — EN VIVO (privado, tras login) -->
         <article class="card"><div class="glow"></div>
           <div class="row1"><div class="face">RM</div>
-            <div class="who"><div class="name">Adlor Risk Management</div><div class="role">Seguros · Correduría</div></div>
+            <div class="who"><h3 class="name">Adlor Risk Management</h3><div class="role">Seguros · Correduría</div></div>
             <span class="pill working" style="margin-left:auto"><i></i>En vivo</span></div>
-          <p class="act">La operación completa de una <b>correduría de seguros</b> en un solo sistema: clientes, pólizas, cotizaciones multi-aseguradora, comparador, fianzas y <b>alertas automáticas de vencimiento</b>. La IA extrae los datos de los documentos y llena las carátulas.</p>
+          <p class="act">La operación completa de una <b>correduría de seguros</b> en un solo sistema: clientes, pólizas, cotizaciones multiaseguradora, comparador, fianzas y <b>alertas automáticas de vencimiento</b>. La IA extrae los datos de los documentos y llena las carátulas.</p>
           <div class="foot"><span class="metric">STACK · <b>Next.js · Prisma · Neon</b></span><span class="metric">Acceso privado</span></div>
         </article>
 
         <!-- Adlor Agent — EN DESARROLLO -->
         <article class="card"><div class="glow"></div>
           <div class="row1"><div class="face">AG</div>
-            <div class="who"><div class="name">Adlor Agent</div><div class="role">Agentes de IA</div></div>
+            <div class="who"><h3 class="name">Adlor Agent</h3><div class="role">Agentes de IA</div></div>
             <span class="pill wait" style="margin-left:auto"><i></i>En desarrollo</span></div>
           <p class="act">Fábrica de <b>empleados digitales</b> para creadores de LATAM: se configuran, se les definen límites y operan de forma autónoma, escalando a una persona donde el criterio humano importa.</p>
           <div class="foot"><span class="metric">STACK · <b>Next.js · IA</b></span><span class="metric">Pronto</span></div>
@@ -201,7 +250,7 @@
         <!-- Signum — EN DESARROLLO -->
         <article class="card"><div class="glow"></div>
           <div class="row1"><div class="face">SG</div>
-            <div class="who"><div class="name">Signum</div><div class="role">Newsletters · IA</div></div>
+            <div class="who"><h3 class="name">Signum</h3><div class="role">Newsletters · IA</div></div>
             <span class="pill wait" style="margin-left:auto"><i></i>En desarrollo</span></div>
           <p class="act">Newsletters completas generadas con IA: <b>investigación con fuentes verificables</b>, redacción de nivel experto, envío y monetización. De la idea al correo enviado, sin pasar por una mesa de redacción.</p>
           <div class="foot"><span class="metric">STACK · <b>Next.js · AWS</b></span><span class="metric">Pronto</span></div>
@@ -210,7 +259,7 @@
         <!-- Casa en Orden — EN DESARROLLO (dashboard + WhatsApp) -->
         <article class="card"><div class="glow"></div>
           <div class="row1"><div class="face">CO</div>
-            <div class="who"><div class="name">Casa en Orden</div><div class="role">Hogar · SaaS</div></div>
+            <div class="who"><h3 class="name">Casa en Orden</h3><div class="role">Hogar · SaaS</div></div>
             <span class="pill wait" style="margin-left:auto"><i></i>En desarrollo</span></div>
           <p class="act">El orden de una casa no se resuelve una vez: <b>se sostiene todos los días</b>. El personal doméstico opera desde <b>WhatsApp</b>, la IA verifica la evidencia fotográfica y cierra la tarea. Las dudas escalan al operador, nunca al dueño.</p>
           <div class="foot"><span class="metric">STACK · <b>Next.js · Supabase · WhatsApp</b></span><span class="metric">Pronto</span></div>
@@ -219,16 +268,16 @@
         <!-- Video Studio — EN DESARROLLO (pipeline interno ya operativo) -->
         <article class="card"><div class="glow"></div>
           <div class="row1"><div class="face">VS</div>
-            <div class="who"><div class="name">Video Studio</div><div class="role">Video · IA</div></div>
+            <div class="who"><h3 class="name">Video Studio</h3><div class="role">Video · IA</div></div>
             <span class="pill wait" style="margin-left:auto"><i></i>En desarrollo</span></div>
-          <p class="act">Un equipo de <b>cinco agentes</b> escribe el guion, genera los clips, anima los gráficos y entrega el master final con revisión cuadro por cuadro. Es el mismo estudio con el que producimos nuestro propio material.</p>
-          <div class="foot"><span class="metric">STACK · <b>5 agentes · IA generativa</b></span><span class="metric">Pipeline interno</span></div>
+          <p class="act">Un equipo de <b>cinco agentes</b> escribe el guion, genera los clips, anima los gráficos y entrega el máster final con revisión cuadro por cuadro. Es el mismo estudio con el que producimos nuestro propio material.</p>
+          <div class="foot"><span class="metric">EQUIPO · <b>5 agentes · IA generativa</b></span><span class="metric">Pipeline interno</span></div>
         </article>
 
         <!-- NOISE Agency OS — EN DESARROLLO (local-first, previo a Stripe) -->
         <article class="card"><div class="glow"></div>
           <div class="row1"><div class="face">NS</div>
-            <div class="who"><div class="name">NOISE Agency OS</div><div class="role">Agencia · Marketing</div></div>
+            <div class="who"><h3 class="name">NOISE Agency OS</h3><div class="role">Agencia · Marketing</div></div>
             <span class="pill wait" style="margin-left:auto"><i></i>En desarrollo</span></div>
           <p class="act">El sistema operativo de una <b>agencia de marketing asistida por IA</b>: briefs, marcas, claims con evidencia, generación de piezas, aprobaciones y reporte — todo auditable, con el costo medido por marca y por pieza. La regla de la casa: <b>una marca es dato, un proveedor es adaptador, y una afirmación factual necesita evidencia</b>.</p>
           <div class="foot"><span class="metric">STACK · <b>Next.js · Prisma · Postgres</b></span><span class="metric">Beta interna</span></div>
@@ -248,7 +297,7 @@
            Para agregar otra: copia una <article class="card"> de abajo.
            ---------------------------------------------------------- -->
       <div class="sec-head" style="margin-top:34px">
-        <h2>Soluciones web</h2><span class="rule"></span><span class="count">PARA CLIENTES</span>
+        <h3>Soluciones web</h3><span class="rule"></span><span class="count">PARA CLIENTES</span>
       </div>
       <p class="lede" style="font-size:14px;max-width:76ch;margin:0 0 18px">
         Un sitio que no captura ni conserva información no resuelve nada. Lo que entregamos incluye
@@ -260,7 +309,7 @@
         <!-- Luz Elena ZV — EN VIVO (luzelenazv.com) -->
         <article class="card"><div class="glow"></div>
           <div class="row1"><div class="face">LZ</div>
-            <div class="who"><div class="name">Luz Elena ZV</div><div class="role">Marca personal</div></div>
+            <div class="who"><h3 class="name">Luz Elena ZV</h3><div class="role">Marca personal</div></div>
             <span class="pill working" style="margin-left:auto"><i></i>En vivo</span></div>
           <p class="act">Sitio de <b>marca personal</b> para una conferencista y consultora en venta consultiva y liderazgo: cursos corporativos, asesorías y captura de leads integrada.</p>
           <div class="foot"><span class="metric">INCLUYE · <b>Leads · Redes</b></span><a class="metric" href="https://luzelenazv.com/" target="_blank" rel="noopener" style="color:var(--cyan);text-decoration:none">Visitar →</a></div>
@@ -269,19 +318,19 @@
         <!-- Mamá en Curso — EN VIVO (mamaencurso.com) -->
         <article class="card"><div class="glow"></div>
           <div class="row1"><div class="face">MC</div>
-            <div class="who"><div class="name">Mamá en Curso</div><div class="role">Cursos · Comunidad</div></div>
+            <div class="who"><h3 class="name">Mamá en Curso</h3><div class="role">Cursos · Comunidad</div></div>
             <span class="pill working" style="margin-left:auto"><i></i>En vivo</span></div>
-          <p class="act">Plataforma de <b>maternidad consciente</b> con un programa premium de 8 días: registro de usuarias, contenido de pago y comunidad.</p>
+          <p class="act">Plataforma de <b>maternidad consciente</b> con un programa premium de ocho días: registro de usuarias, contenido de pago y comunidad.</p>
           <div class="foot"><span class="metric">INCLUYE · <b>BD · Suscripciones</b></span><a class="metric" href="https://mamaencurso.com/" target="_blank" rel="noopener" style="color:var(--cyan);text-decoration:none">Visitar →</a></div>
         </article>
 
         <!-- Bare Cozumel — EN VIVO (barecozumel.fun) -->
         <article class="card"><div class="glow"></div>
           <div class="row1"><div class="face">BC</div>
-            <div class="who"><div class="name">Bare Cozumel</div><div class="role">Turismo · Reservas</div></div>
+            <div class="who"><h3 class="name">Bare Cozumel</h3><div class="role">Turismo · Reservas</div></div>
             <span class="pill working" style="margin-left:auto"><i></i>En vivo</span></div>
           <p class="act"><b>Tours en Cozumel</b> orientados al pasajero de crucero, que dispone de pocas horas: catálogo claro, reservas por WhatsApp y galería fotográfica real.</p>
-          <div class="foot"><span class="metric">INCLUYE · <b>Reservas · WhatsApp</b></span><a class="metric" href="https://barecozumel.fun/en" target="_blank" rel="noopener" style="color:var(--cyan);text-decoration:none">Visitar →</a></div>
+          <div class="foot"><span class="metric">INCLUYE · <b>Reservas · WhatsApp</b></span><a class="metric" href="https://barecozumel.fun/" target="_blank" rel="noopener" style="color:var(--cyan);text-decoration:none">Visitar →</a></div>
         </article>
       </div>
     </section>
@@ -292,30 +341,30 @@
     <section class="section" id="servicios" style="margin-top:48px">
       <div class="win-head">
         <span class="win-dots"><i></i><i></i><i></i></span>
-        <span class="win-title"><b>Servicios</b> &nbsp;·&nbsp; adlor://servicios</span>
+        <h2 class="win-title"><b>Servicios</b> &nbsp;·&nbsp; adlor://servicios</h2>
         <span class="win-title" style="margin-left:auto">QUÉ HACEMOS</span>
       </div>
 
       <div class="grid cols-2">
         <article class="card"><div class="glow"></div>
           <div class="row1"><div class="face">◆</div>
-            <div class="who"><div class="name">Agentes de IA</div><div class="role">Autónomos</div></div></div>
-          <p class="act">Un agente no es un chatbot: ejecuta la tarea completa — investiga, redacta, responde y reporta — y solicita <b>tu aprobación</b> donde el criterio humano es indispensable. Tú defines los límites; él opera dentro de ellos.</p>
+            <div class="who"><h3 class="name">Agentes de IA</h3><div class="role">Autónomos</div></div></div>
+          <p class="act">Un agente no es un chatbot: ejecuta la tarea completa — investiga, redacta, responde y reporta — y solicita <b>tu aprobación</b> donde el criterio humano es indispensable. Incluye <b>call centers con agentes de voz y WhatsApp</b> que llaman, califican y transfieren a una persona cuando corresponde.</p>
         </article>
         <article class="card"><div class="glow"></div>
           <div class="row1"><div class="face">◆</div>
-            <div class="who"><div class="name">Soluciones web a medida</div><div class="role">Web · Apps</div></div></div>
+            <div class="who"><h3 class="name">Soluciones web a medida</h3><div class="role">Web · Apps</div></div></div>
           <p class="act"><b>Base de datos, CRM, captura de leads y conexión con tus redes</b>, integrados en un sitio rápido que escala con el negocio. Un sitio que opera, no un folleto.</p>
         </article>
         <article class="card"><div class="glow"></div>
           <div class="row1"><div class="face">◆</div>
-            <div class="who"><div class="name">Automatización de procesos</div><div class="role">Procesos</div></div></div>
+            <div class="who"><h3 class="name">Automatización de procesos</h3><div class="role">Procesos</div></div></div>
           <p class="act">El reporte semanal, el correo que se copia y se pega, la hoja de cálculo que solo una persona entiende. Conectamos tus herramientas y <b>ese trabajo deja de consumir horas</b>.</p>
         </article>
         <article class="card"><div class="glow"></div>
           <div class="row1"><div class="face">◆</div>
-            <div class="who"><div class="name">Video con IA</div><div class="role">Producción</div></div></div>
-          <p class="act">Guion, clips, gráficos animados y master final, <b>generados de punta a punta</b>. Producido con el mismo estudio que usamos para nuestro propio material.</p>
+            <div class="who"><h3 class="name">Video con IA</h3><div class="role">Producción</div></div></div>
+          <p class="act">Guion, clips, gráficos animados y máster final, <b>generados de punta a punta</b>. Producidos con el mismo estudio que usamos para nuestro propio material.</p>
         </article>
       </div>
     </section>
@@ -327,29 +376,29 @@
     <section class="section" id="proceso" style="margin-top:48px">
       <div class="win-head">
         <span class="win-dots"><i></i><i></i><i></i></span>
-        <span class="win-title"><b>Proceso</b> &nbsp;·&nbsp; adlor://proceso</span>
+        <h2 class="win-title"><b>Proceso</b> &nbsp;·&nbsp; adlor://proceso</h2>
         <span class="win-title" style="margin-left:auto">CÓMO TRABAJAMOS</span>
       </div>
 
       <div class="steps">
         <div class="step">
           <div class="step-num">01</div>
-          <div class="step-name">Descubrimiento</div>
+          <h3 class="step-name">Descubrimiento</h3>
           <p class="step-desc">Escuchamos y observamos cómo opera hoy tu negocio. Salimos con un diagnóstico de qué cuesta más y qué conviene resolver primero — que rara vez coincide con la primera hipótesis.</p>
         </div>
         <div class="step">
           <div class="step-num">02</div>
-          <div class="step-name">Diseño de la solución</div>
-          <p class="step-desc">Antes de escribir una línea acordamos qué decide el sistema por su cuenta y qué pasa siempre por ti. Esa frontera queda documentada, y se respeta.</p>
+          <h3 class="step-name">Diseño de la solución</h3>
+          <p class="step-desc">Antes de escribir una línea, acordamos qué decide el sistema por su cuenta y qué pasa siempre por ti. Esa frontera queda documentada, y se respeta.</p>
         </div>
         <div class="step">
           <div class="step-num">03</div>
-          <div class="step-name">Construcción con IA</div>
+          <h3 class="step-name">Construcción con IA</h3>
           <p class="step-desc">Construimos con agentes de IA: es lo que permite entregar en semanas un alcance que normalmente toma meses. Todo se revisa y se prueba antes de llegar a ti.</p>
         </div>
         <div class="step">
           <div class="step-num">04</div>
-          <div class="step-name">Operación supervisada</div>
+          <h3 class="step-name">Operación supervisada</h3>
           <p class="step-desc">Lanzamos, medimos y damos mantenimiento. El sistema opera de forma continua; tú conservas el control con métricas y aprobaciones a la vista.</p>
         </div>
       </div>
@@ -407,7 +456,7 @@
       <div class="card" style="margin-top:24px;padding:22px 24px">
         <div class="win-head">
           <span class="win-dots"><i></i><i></i><i></i></span>
-          <span class="win-title"><b>Contacto</b> &nbsp;·&nbsp; adlor://contacto</span>
+          <h2 class="win-title"><b>Contacto</b> &nbsp;·&nbsp; adlor://contacto</h2>
           <span class="win-title" style="margin-left:auto">MENSAJE DIRECTO</span>
         </div>
 
@@ -428,10 +477,9 @@
             <select id="cf-interes" name="interes">
               <optgroup label="Quiero construir algo">
                 <option value="Agentes de IA">Agentes de IA</option>
-                <option value="Software a medida">Software a medida</option>
                 <option value="Automatización de procesos">Automatización de procesos</option>
                 <option value="Call center con agentes de voz y WhatsApp">Call center con agentes de voz y WhatsApp</option>
-                <option value="Solución web con base de datos y CRM">Solución web con base de datos y CRM</option>
+                <option value="Soluciones web a medida">Soluciones web a medida (base de datos y CRM)</option>
                 <option value="Video con IA">Video con IA</option>
               </optgroup>
               <optgroup label="Me interesa un proyecto de Adlor">
@@ -463,7 +511,9 @@
             <a class="btn ghost" href="mailto:contacto@adlor-ia.com">O escríbenos directo</a>
           </div>
 
-          <p id="cf-status" class="cf-status" role="status" aria-live="polite"></p>
+          <p id="cf-status" class="cf-status" role="status"></p>
+          <p class="cf-aviso">Guardamos tu nombre y correo únicamente para responderte.
+            No los compartimos con nadie.</p>
         </form>
       </div>
     </section>
@@ -475,7 +525,7 @@
       <span class="l">ADLOR · IA · <a href="mailto:contacto@adlor-ia.com" style="color:var(--cyan);text-decoration:none">contacto@adlor-ia.com</a></span>
       <span class="r">IA APLICADA · <b>LATAM</b> · <a href="https://numbrica.com" target="_blank" rel="noopener" style="color:var(--cyan);text-decoration:none">NUMBRICA →</a></span>
     </footer>
-  </div>
+  </main>
 
   <!-- ================================================================
        AGENTE DEL SITIO — responde en tiempo real (lógica en js/agente.js)
@@ -499,7 +549,7 @@
       <button id="ag-close" class="ag-close" type="button" aria-label="Cerrar el agente">×</button>
     </div>
 
-    <div id="ag-log" class="ag-log" role="log" aria-live="polite" aria-atomic="false"></div>
+    <div id="ag-log" class="ag-log" role="log" tabindex="0"></div>
 
     <div id="ag-sugerencias" class="ag-sugerencias" hidden>
       <button class="ag-chip" type="button">¿Qué hace Adlor exactamente?</button>
@@ -517,7 +567,9 @@
       </button>
     </form>
 
-    <p class="ag-nota">Respuestas generadas con IA. Para precios y plazos te contesta una persona.</p>
+    <p class="ag-nota">Respuestas generadas con IA. Para precios y plazos te contesta una persona.
+      Guardamos la conversación para mejorar el servicio.</p>
+    <p class="sr-only" id="ag-anuncio" aria-live="polite"></p>
   </section>
 
   <!-- ================================================================

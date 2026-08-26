@@ -31,9 +31,14 @@
   var send = document.getElementById("ag-send");
   var close = document.getElementById("ag-close");
   var chips = document.getElementById("ag-sugerencias");
+  var anuncio = document.getElementById("ag-anuncio");
 
   var ENDPOINT = "/api/chat";
   var MAX_CARACTERES = 2000;
+  var TIMEOUT_MS = 45000;   // el stream tarda, pero no eternamente
+  var MAX_TURNOS = 16;      // lo que se manda al servidor, para que no crezca sin fin
+
+  var enCurso = null;       // AbortController de la peticion viva
 
   var historia = []; // [{role, content}] — lo que se manda al servidor
   var ocupado = false;
@@ -91,7 +96,10 @@
   function botonOcupado(si) {
     ocupado = si;
     if (send) send.disabled = si;
-    if (input) input.disabled = si;
+    // readOnly en vez de disabled: deshabilitar el elemento enfocado manda el
+    // foco a <body>, y un usuario de teclado tenia que tabular 34 veces para
+    // volver al widget.
+    if (input) input.readOnly = si;
   }
 
   /* ---------- abrir y cerrar ---------- */
@@ -99,6 +107,8 @@
   function abrir() {
     abierto = true;
     panel.hidden = false;
+    // El panel tapaba por completo al lanzador, que seguia siendo tabulable
+    launcher.hidden = true;
     launcher.setAttribute("aria-expanded", "true");
     // El saludo se escribe una sola vez, al primer abrir
     if (!log.children.length) {
@@ -116,8 +126,11 @@
   }
 
   function cerrar() {
+    // Sin esto el stream seguia escribiendo en un panel que ya nadie ve
+    if (enCurso) { try { enCurso.abort(); } catch (e) {} enCurso = null; }
     abierto = false;
     panel.hidden = true;
+    launcher.hidden = false;
     launcher.setAttribute("aria-expanded", "false");
     launcher.focus();
   }
@@ -177,23 +190,37 @@
     var cuerpo = null; // se crea al llegar el primer fragmento
     var acumulado = "";
 
+    var cerrado = false; // el cierre tiene que ser idempotente
     function fallo(msg) {
+      if (cerrado) return;
+      cerrado = true;
       if (esperando && esperando.parentNode) esperando.remove();
       if (cuerpo) cuerpo.textContent = acumulado + "\n\n" + msg;
       else burbuja("assistant", msg);
+      if (anuncio) anuncio.textContent = msg;
       botonOcupado(false);
       alFinal();
+      if (input && abierto) input.focus();   // sin esto el foco se quedaba en <body>
     }
 
-    fetch(ENDPOINT, {
+    if (enCurso) { try { enCurso.abort(); } catch (e) {} }
+    enCurso = typeof AbortController !== "undefined" ? new AbortController() : null;
+    var reloj = enCurso
+      ? setTimeout(function () { enCurso.abort(); }, TIMEOUT_MS)
+      : null;
+
+    var opciones = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         session_id: sesion,
         page: location.href.slice(0, 500),
-        messages: historia,
+        messages: historia.slice(-MAX_TURNOS),
       }),
-    })
+    };
+    if (enCurso) opciones.signal = enCurso.signal;
+
+    fetch(ENDPOINT, opciones)
       .then(function (res) {
         if (!res.ok || !res.body) {
           // Errores con cuerpo JSON (no llegaron a stream)
@@ -255,6 +282,7 @@
                 alFinal();
               } else if (dato.t === "error") {
                 fallo(dato.msg);
+                try { lector.cancel(); } catch (e) {}
               }
             });
 
@@ -263,18 +291,31 @@
         }
 
         function terminar() {
+          if (cerrado) return;
+          cerrado = true;
+          if (reloj) clearTimeout(reloj);
+          enCurso = null;
           if (esperando && esperando.parentNode) esperando.remove();
           if (acumulado) historia.push({ role: "assistant", content: acumulado });
+          // La respuesta se anuncia UNA vez al terminar. Antes el log era una
+          // region viva y cada fragmento del stream la releia entera.
+          if (anuncio && acumulado) anuncio.textContent = acumulado;
           botonOcupado(false);
-          if (input) input.focus();
+          if (input && abierto) input.focus();
           alFinal();
         }
 
         return leer();
       })
       .catch(function (err) {
-        // Si falló, ese turno no cuenta: se saca para no ensuciar el contexto
-        historia.pop();
+        if (reloj) clearTimeout(reloj);
+        enCurso = null;
+        // Si falló, ese turno no cuenta: se saca para no ensuciar el contexto.
+        // Comprobado antes de sacar, para no arrancar el turno equivocado.
+        if (historia.length && historia[historia.length - 1].role === "user") {
+          historia.pop();
+        }
+        if (err && err.name === "AbortError" && !abierto) return; // cerró el panel
         fallo(
           err && err.message
             ? err.message

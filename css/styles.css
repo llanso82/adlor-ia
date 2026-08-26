@@ -15,7 +15,7 @@
   --line-strong:rgba(120,180,255,.24);
   --ink:#EAF1F8;
   --muted:#8B99AB;
-  --faint:#4A5666;
+  --faint:#6B7789;   /* 4.5:1 sobre --bg. El #4A5666 anterior daba 2.72:1 */
   --cyan:#42E6FF;          /* acento principal */
   --cyan-dim:#1C7E96;
   --amber:#F5B84B;         /* "requiere atención" */
@@ -70,7 +70,7 @@ header.top{position:relative;z-index:3;display:flex;align-items:center;gap:20px;
   display:grid;place-items:center;font-family:var(--mono);font-size:12px;color:var(--ink);background:var(--panel-2)}
 @keyframes breathe{0%,100%{opacity:.5}50%{opacity:1}}
 
-.hero{display:grid;grid-template-columns:minmax(0,1fr) 440px;gap:36px;align-items:center;padding:52px 0 40px}
+.hero{display:grid;grid-template-columns:minmax(0,1fr) clamp(300px,34vw,440px);gap:36px;align-items:center;padding:52px 0 40px}
 .hero-copy h1{font-size:clamp(32px,4.8vw,56px);line-height:1.02;letter-spacing:-.02em;
   font-weight:660;margin:14px 0 0;text-wrap:balance}
 .hero-copy h1 em{font-style:normal;color:var(--cyan);text-shadow:0 0 34px rgba(66,230,255,.45)}
@@ -82,12 +82,12 @@ header.top{position:relative;z-index:3;display:flex;align-items:center;gap:20px;
 .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;margin-top:34px;
   border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--line)}
 .kpi{background:var(--panel);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);padding:16px 16px 14px}
-.kpi .lbl{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.kpi .lbl{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);min-height:30px}
 .kpi .val{font-size:24px;font-weight:600;margin-top:6px;letter-spacing:-.01em}
 .kpi .val .u{font-size:13px;color:var(--muted);font-weight:500;margin-left:2px}
 .kpi.attn .val{color:var(--amber)}
 
-.core-stage{position:relative;display:grid;place-items:center;min-height:440px}
+.core-stage{position:relative;display:grid;place-items:center;min-height:0}
 canvas#core{width:440px;height:440px;max-width:100%;display:block}
 .core-caption{position:absolute;bottom:6px;left:50%;transform:translateX(-50%);
   font-family:var(--mono);font-size:10px;letter-spacing:.26em;color:var(--muted);text-transform:uppercase;white-space:nowrap}
@@ -102,6 +102,10 @@ canvas#core{width:440px;height:440px;max-width:100%;display:block}
 .grid.cols-2{grid-template-columns:repeat(2,1fr)}
 .card{position:relative;background:var(--panel);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
   border:1px solid var(--line);border-radius:14px;padding:18px 18px 16px;overflow:hidden;
+  /* Columna flex para que el pie se pegue abajo: la retícula estira la tarjeta
+     a la altura de la más alta y antes el contenido se quedaba arriba, dejando
+     los STACK · … de una misma fila a tres alturas distintas. */
+  display:flex;flex-direction:column;
   transition:border-color .25s,transform .25s,box-shadow .25s}
 .card:hover{border-color:var(--line-strong);transform:translateY(-3px);
   box-shadow:0 22px 50px -26px rgba(0,0,0,.9),0 0 0 1px rgba(66,230,255,.08)}
@@ -113,11 +117,11 @@ canvas#core{width:440px;height:440px;max-width:100%;display:block}
   font-family:var(--mono);font-size:14px;color:var(--ink);border:1px solid var(--line-strong);
   background:radial-gradient(120% 120% at 30% 20%,rgba(66,230,255,.16),rgba(10,14,20,.9))}
 .card .who{min-width:0}
-.card .name{font-weight:600;font-size:15px;letter-spacing:.01em}
+.card .name{font-weight:600;font-size:15px;letter-spacing:.01em;margin:0}
 .card .role{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:2px}
-.card .act{color:var(--muted);font-size:13px;margin:14px 0 0;min-height:38px}
+.card .act{color:var(--muted);font-size:13px;margin:14px 0 0;flex:1 1 auto;min-height:0}
 .card .act b{color:var(--ink);font-weight:500}
-.card .foot{display:flex;align-items:center;justify-content:space-between;margin-top:14px;padding-top:12px;border-top:1px solid var(--line)}
+.card .foot{display:flex;align-items:center;justify-content:space-between;margin-top:auto;padding-top:12px;border-top:1px solid var(--line)}
 .card .metric{font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:.06em}
 .card .metric b{color:var(--ink)}
 /* tarjeta "vacía" con borde punteado (ej. "Agregar proyecto") */
@@ -153,7 +157,14 @@ canvas#core{width:440px;height:440px;max-width:100%;display:block}
 .btn:hover{border-color:var(--cyan);color:var(--cyan);box-shadow:0 0 24px -6px rgba(66,230,255,.6)}
 .btn.ghost{border-color:var(--line);color:var(--muted);background:transparent}
 .btn.ghost:hover{color:var(--ink);border-color:var(--line-strong);box-shadow:none}
-.btn:focus-visible,a:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
+.btn:focus-visible,a:focus-visible,button:focus-visible,
+.ag-launcher:focus-visible,.ag-chip:focus-visible,.ag-close:focus-visible,
+.ag-send:focus-visible,.ag-log:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
+
+/* Al pulsar, algo tiene que moverse: en tactil no hay hover y sin esto el
+   usuario no sabe si registro el toque. */
+.btn:active,.dockbtn:active,.menurow a:active,.ag-chip:active,
+.ag-send:active,.ag-launcher:active{transform:translateY(1px);opacity:.85}
 .btn.done{border-color:rgba(66,230,255,.32);color:var(--cyan);pointer-events:none;opacity:.85}
 
 footer.foot{margin-top:56px;padding-top:22px;border-top:1px solid var(--line);
@@ -164,7 +175,8 @@ footer.foot .r b{color:var(--cyan)}
 
 @media (max-width:880px){
   .hero{grid-template-columns:1fr;gap:8px}
-  .core-stage{order:-1;min-height:320px}
+  .core-stage{order:-1;min-height:200px}
+  canvas#core{width:200px;height:200px}
   canvas#core{width:300px;height:300px}
   .grid,.grid.cols-2{grid-template-columns:1fr}
   .kpis{grid-template-columns:repeat(2,1fr)}
@@ -199,7 +211,11 @@ footer.foot .r b{color:var(--cyan)}
 .dock-sep{width:26px;height:1px;background:var(--line);margin:6px 0}
 @media (max-width:880px){ .osdock{flex-direction:row;left:0;right:0;bottom:0;top:auto;width:auto;height:60px;
   padding:0 12px;border-right:none;border-top:1px solid var(--line);gap:2px;justify-content:space-around}
-  .dock-logo,.dock-sep{display:none} .dock-nav{flex-direction:row} .dock-foot{margin-top:0}
+  .dock-logo,.dock-sep{display:none} .dock-nav{flex-direction:row}
+  /* Seguia en columna dentro de una barra de 60px: el avatar quedaba 26px
+     fuera de la pantalla y "Ajustes" sobresalia por arriba. */
+  .dock-foot{margin-top:0;flex-direction:row;gap:2px}
+  .dock-foot .avatar{display:none}
   .dockbtn .tip{display:none} }
 
 /* ===== menu bar refinada + reloj ===== */
@@ -226,6 +242,9 @@ header.top .crumb .sl{color:var(--faint)}
 
 /* ===== window chrome on panels ===== */
 .win-head{display:flex;align-items:center;gap:8px;margin:0 0 14px;padding-bottom:12px;border-bottom:1px solid var(--line)}
+/* Los titulos de seccion pasaron de <span> a <h2> por accesibilidad: hay que
+   neutralizar el margen y el peso que trae el navegador. */
+.win-head h2{margin:0;font-weight:400}
 .win-dots{display:flex;gap:5px}
 .win-dots i{width:8px;height:8px;border-radius:50%;background:var(--line-strong)}
 .win-dots i:first-child{background:rgba(66,230,255,.5)}
@@ -255,7 +274,7 @@ header.top .crumb .sl{color:var(--faint)}
   width:100%;font-family:var(--sans);font-size:14px;line-height:1.45;color:var(--ink);
   background:rgba(8,12,18,.6);border:1px solid var(--line);border-radius:10px;padding:11px 13px;
   -webkit-appearance:none;appearance:none;transition:border-color .2s,box-shadow .2s,background .2s}
-.cform input::placeholder,.cform textarea::placeholder{color:var(--faint);opacity:1}
+.cform input::placeholder,.cform textarea::placeholder{color:var(--muted);opacity:1}
 .cform textarea{resize:vertical;min-height:120px;line-height:1.55}
 /* foco: borde cian + glow suave (sin outline nativo; el glow ES el indicador) */
 .cform input:focus,.cform select:focus,.cform textarea:focus{outline:none;
@@ -300,7 +319,7 @@ header.top .crumb .sl{color:var(--faint)}
   box-shadow:0 22px 50px -26px rgba(0,0,0,.9),0 0 0 1px rgba(66,230,255,.08)}
 .step-num{font-family:var(--mono);font-size:26px;font-weight:600;letter-spacing:.06em;color:var(--cyan);
   text-shadow:0 0 22px rgba(66,230,255,.5)}
-.step-name{font-weight:600;font-size:15px;letter-spacing:.01em;margin-top:10px}
+.step-name{font-weight:600;font-size:15px;letter-spacing:.01em;margin:10px 0 0}
 .step-desc{color:var(--muted);font-size:13px;margin:8px 0 0}
 
 /* ===== Pulido: enlaces del pie coherentes con el sistema ===== */
@@ -316,7 +335,7 @@ footer.foot a:hover{text-shadow:0 0 14px rgba(66,230,255,.6)}
 }
 @media (max-width:640px){ .steps{grid-template-columns:1fr} }
 @media (prefers-reduced-motion:reduce){
-  .step,.cform input,.cform select,.cform textarea,.cf-status{transition:none}
+  .step,.card,.btn,.dockbtn .tip,.cform input,.cform select,.cform textarea,.cf-status{transition:none}
   .step:hover,.card:hover{transform:none}
 }
 
@@ -402,13 +421,13 @@ footer.foot a:hover{text-shadow:0 0 14px rgba(66,230,255,.6)}
   padding:10px 12px;border:1px solid var(--line);border-radius:11px;
   background:rgba(255,255,255,.03);outline:none;transition:border-color .15s}
 .ag-form textarea:focus{border-color:rgba(66,230,255,.45)}
-.ag-form textarea::placeholder{color:var(--faint)}
+.ag-form textarea::placeholder{color:var(--muted)}
 .ag-form textarea:disabled{opacity:.5}
 .ag-send{flex:0 0 auto;width:38px;height:38px;display:grid;place-items:center;
   border:1px solid rgba(66,230,255,.3);border-radius:11px;cursor:pointer;
   background:rgba(66,230,255,.1);color:var(--cyan);transition:.15s}
 .ag-send:hover:not(:disabled){background:rgba(66,230,255,.18);border-color:rgba(66,230,255,.55)}
-.ag-send:disabled{opacity:.4;cursor:default}
+.ag-send:disabled{opacity:.45;cursor:default}
 .ag-send svg{width:18px;height:18px}
 
 .ag-nota{flex:0 0 auto;margin:0;padding:0 14px 12px;
@@ -424,4 +443,44 @@ footer.foot a:hover{text-shadow:0 0 14px rgba(66,230,255,.6)}
   .ag-pulse,.ag-dots i{animation:none}
   .ag-launcher{transition:none}
   .ag-launcher:hover{transform:none}
+}
+
+
+/* =====================================================================
+   ARREGLOS DE LA AUDITORIA
+   ===================================================================== */
+
+/* Salto al contenido: era la parada 35 del tabulador antes de esto */
+.skip{position:absolute;left:-9999px;top:0;z-index:100;
+  padding:10px 16px;background:var(--cyan);color:#04060A;
+  font-family:var(--sans);font-size:14px;font-weight:600;border-radius:0 0 10px 0}
+.skip:focus{left:0}
+
+/* Solo para lectores de pantalla */
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;
+  overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+/* Los campos del formulario tenian exactamente el mismo color que la tarjeta
+   (1.00:1): solo los delimitaba un borde de 1.20:1. */
+.cform input,.cform select,.cform textarea{
+  background:rgba(255,255,255,.035);
+  border-color:rgba(120,180,255,.28)}
+
+.cf-aviso{margin:10px 0 0;font-family:var(--mono);font-size:10px;
+  letter-spacing:.06em;line-height:1.6;color:var(--faint)}
+
+/* El lanzador quedaba tapado por el panel y seguia siendo tabulable.
+   El JS le pone [hidden] al abrir; esto hace que el atributo mande. */
+.ag-launcher[hidden]{display:none}
+
+/* El widget se montaba 14px encima de la barra de navegacion movil
+   (60px) porque su posicion estaba calculada contra la .osbar (34px). */
+@media (max-width:880px){
+  .ag-launcher{bottom:74px}
+  .ag-panel{bottom:74px;height:min(500px,calc(100vh - 150px))}
+}
+
+/* A 375px las cinco cabeceras de ventana quedaban justo en el limite */
+@media (max-width:520px){
+  .win-head{flex-wrap:wrap;row-gap:4px}
 }
