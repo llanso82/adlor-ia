@@ -18,3 +18,5 @@ node_modules/
 # Logs y temporales
 *.log
 .cache/
+
+.vercel
