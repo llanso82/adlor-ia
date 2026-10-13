@@ -172,6 +172,8 @@ footer.foot{margin-top:56px;padding-top:22px;border-top:1px solid var(--line);
 footer.foot .l{font-family:var(--mono);font-size:11px;color:var(--faint);letter-spacing:.14em}
 footer.foot .r{font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:.12em}
 footer.foot .r b{color:var(--cyan)}
+footer.foot .dir{flex-basis:100%;font-style:normal;font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:.06em;line-height:1.6}
+footer.foot .dir a{white-space:nowrap}
 
 @media (max-width:880px){
   .hero{grid-template-columns:1fr;gap:8px}
