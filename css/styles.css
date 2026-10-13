@@ -433,7 +433,10 @@ footer.foot a:hover{text-shadow:0 0 14px rgba(66,230,255,.6)}
 .ag-send svg{width:18px;height:18px}
 
 .ag-nota{flex:0 0 auto;margin:0;padding:0 14px 12px;
-  font-family:var(--mono);font-size:9.5px;letter-spacing:.06em;color:var(--faint)}
+  font-family:var(--mono);font-size:10.5px;line-height:1.5;letter-spacing:.04em;color:var(--muted)}
+.ag-nota b,.cf-aviso b{color:var(--ink);font-weight:600}
+/* Enlaces al aviso de privacidad en las notas legales (contacto y chat) */
+.ag-nota a,.cf-aviso a{color:var(--cyan);text-decoration:underline;text-underline-offset:2px}
 
 @media (max-width:520px){
   .ag-launcher{right:14px;bottom:46px;padding:10px 14px}
@@ -469,7 +472,7 @@ footer.foot a:hover{text-shadow:0 0 14px rgba(66,230,255,.6)}
   border-color:rgba(120,180,255,.28)}
 
 .cf-aviso{margin:10px 0 0;font-family:var(--mono);font-size:10px;
-  letter-spacing:.06em;line-height:1.6;color:var(--faint)}
+  letter-spacing:.06em;line-height:1.6;color:var(--muted)}
 
 /* El lanzador quedaba tapado por el panel y seguia siendo tabulable.
    El JS le pone [hidden] al abrir; esto hace que el atributo mande. */
