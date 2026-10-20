@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Diagnóstico de pedidos y de IA para tu pyme — Adlor</title>
+  <meta name="description" content="En dos semanas sabes si tus pedidos por WhatsApp se pueden automatizar con tus zonas, tus días y tu punto de venta. Diagnóstico de pedidos $6,000 + IVA; Diagnóstico IA de negocio $12,900 + IVA. CDMX y Edomex.">
+  <meta name="theme-color" content="#04060A">
+
+  <meta property="og:title" content="Diagnóstico de pedidos y de IA para tu pyme — Adlor">
+  <meta property="og:description" content="Pedidos por WhatsApp con tus zonas y tus días, recepcionista 24/7 y diagnóstico de procesos. Empieza con una maqueta gratis en 48 horas.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="es_MX">
+  <meta property="og:url" content="https://adlor-ia.com/diagnostico/">
+  <meta property="og:site_name" content="Adlor">
+  <meta property="og:image" content="https://adlor-ia.com/assets/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://adlor-ia.com/diagnostico/">
+
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../assets/apple-touch-icon.png">
+
+  <!-- Mismo sistema de diseño que la portada -->
+  <link rel="stylesheet" href="../css/styles.css">
+
+  <!--
+    Publicada el 19-oct-2026 a pedido de Adrián. Notas para quien la edite:
+      - WhatsApp del CTA: 55 4758 1543 (wa.me/525547581543), con palabra clave por botón (DIAGNOSTICO, LLAMADA).
+      - «Agendar llamada» manda a WhatsApp; si Adrián abre Cal.com, sustituir ese enlace.
+      - Precios: los de ADLOR SO/01_venta/precios.md. Si cambian allá, cambian aquí.
+      - El formulario reusa js/contact.js (registro en Supabase + aviso por FormSubmit a contacto@adlor-ia.com).
+      - No afirmar como terminado lo que está en construcción (pedidos por WhatsApp está en piloto).
+  -->
+  <style>
+    /* Ajustes locales mínimos; todo lo demás viene de styles.css */
+    .precio{font-family:var(--mono);font-size:28px;color:var(--cyan);letter-spacing:.3px}
+    .precio small{font-size:13px;color:var(--muted);letter-spacing:.1px}
+    .lista{margin:14px 0 0;padding:0;list-style:none;display:grid;gap:9px}
+    .lista li{padding-left:22px;position:relative;color:var(--ink)}
+    .lista li::before{content:"▸";position:absolute;left:0;color:var(--cyan)}
+    .dos{display:grid;gap:18px;grid-template-columns:1fr}
+    @media (min-width:881px){ .dos{grid-template-columns:1fr 1fr} }
+    .faq details{border:1px solid var(--line);border-radius:12px;padding:12px 16px;margin-top:10px;background:var(--panel)}
+    .faq summary{cursor:pointer;font-weight:600;color:var(--ink)}
+    .faq p{color:var(--muted);margin:10px 0 0}
+    .nota{color:var(--faint);font-size:13px;margin-top:10px}
+    .volver{display:inline-block;margin:18px 0 0;color:var(--cyan);text-decoration:none}
+  </style>
+</head>
+<body>
+
+<a class="skip" href="#contenido">Ir al contenido</a>
+<div class="glows"></div>
+<div class="vign"></div>
+
+<div class="adlor">
+  <main class="wrap" id="contenido">
+
+    <a class="volver" href="/">← adlor-ia.com</a>
+
+    <!-- ============================================================
+         HERO
+         ============================================================ -->
+    <section class="hero section" id="inicio">
+      <div class="hero-copy">
+        <div class="eyebrow">Pymes · CDMX y Edomex · Pedidos, recepción y procesos</div>
+        <h1>Tu WhatsApp toma los pedidos con tus zonas y tus días. Tú dejas de capturarlos a mano.</h1>
+        <p>Una distribuidora de alimentos recibe 180 pedidos a la semana y una persona pasa 50 horas pasándolos al punto de venta.
+          Le estamos construyendo un sistema que solo deja pedir en el día que le toca a cada zona, arma la lista de la bodega y pasa a una persona
+          cuando hace falta. <b>Empezamos por saber si en tu negocio también se puede: eso es el diagnóstico.</b></p>
+        <div class="cta-row">
+          <!-- CTA 1: WhatsApp con palabra clave (atribución sin UTM). Confirmar número antes de publicar. -->
+          <a class="btn" href="https://wa.me/525547581543?text=DIAGNOSTICO%20-%20quiero%20una%20maqueta%20con%20mis%20zonas" rel="noopener">Quiero mi maqueta gratis</a>
+          <!-- CTA 2: llamada de 20 min. Sustituir por el enlace de Cal.com cuando exista. -->
+          <a class="btn ghost" href="https://wa.me/525547581543?text=LLAMADA%20-%2020%20minutos%20martes%20o%20jueves" rel="noopener">Agendar llamada de 20 min</a>
+        </div>
+        <p class="nota">La maqueta y la llamada no cuestan. El diagnóstico sí, y se cobra por adelantado: así ninguno de los dos pierde tiempo.</p>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         CÓMO FUNCIONA
+         ============================================================ -->
+    <section class="section" id="como" style="margin-top:48px">
+      <div class="sec-head">
+        <div class="eyebrow">Cómo empieza</div>
+        <h2>Tres pasos, sin compromiso hasta el segundo</h2>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">01</div>
+          <div class="step-name">Maqueta gratis en 48 horas</div>
+          <div class="step-desc">Nos escribes con tus zonas, tus días de entrega y cinco productos. Te mandamos una página con cómo se vería tu pedido por WhatsApp, con tus propias palabras.</div>
+        </div>
+        <div class="step">
+          <div class="step-num">02</div>
+          <div class="step-name">Llamada de 20 minutos</div>
+          <div class="step-desc">Martes y jueves por la tarde. Vemos tu flujo real: cuántos pedidos, quién los captura, qué punto de venta usas y qué se equivoca más. Si no tiene sentido, te lo decimos ahí.</div>
+        </div>
+        <div class="step">
+          <div class="step-num">03</div>
+          <div class="step-name">Diagnóstico pagado</div>
+          <div class="step-desc">Dos semanas (pedidos) o cinco días hábiles (negocio). Sale un documento con reglas, números y una recomendación clara: continuar, cambiar o no hacerlo. Se cobra aunque la respuesta sea «no».</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         LAS DOS OFERTAS (precios de ADLOR SO/01_venta/precios.md)
+         ============================================================ -->
+    <section class="section" id="diagnosticos" style="margin-top:48px">
+      <div class="sec-head">
+        <div class="eyebrow">Qué incluye y qué cuesta</div>
+        <h2>Dos diagnósticos. Precio público, sin descuentos.</h2>
+      </div>
+      <div class="dos">
+        <div class="card" style="padding:22px 24px">
+          <div class="win-head">
+            <span class="win-dots"><i></i><i></i><i></i></span>
+            <h3 class="win-title"><b>Diagnóstico de pedidos</b> &nbsp;·&nbsp; distribuidoras</h3>
+          </div>
+          <p class="precio">$6,000 <small>+ IVA · dos semanas · se descuenta de la implementación</small></p>
+          <p>Para distribuidoras de alimentos y abarrotes con reparto por zona y día que hoy toman pedidos por chats y grupos de WhatsApp.</p>
+          <ul class="lista">
+            <li><b>Viabilidad del canal:</b> tu flujo exacto frente a las políticas vigentes de Meta, por escrito, antes de construir nada.</li>
+            <li><b>Reglas de operación:</b> zonas, cortes, festivos, pedido mínimo, cambios, sustituciones, precios especiales y crédito.</li>
+            <li><b>Tu punto de venta:</b> qué se puede exportar, calidad de tu padrón y catálogo. No tocamos tu base de datos.</li>
+            <li><b>Medición inicial:</b> tiempo por pedido, origen y errores, antes de cambiar nada.</li>
+            <li><b>Recomendación:</b> opción A (pedido guiado) u opción B (con IA), con presupuesto de terceros.</li>
+          </ul>
+          <p class="nota">Si continúas: implementación desde $38,000 en tres pagos por entregables y $4,500 al mes con hospedaje, respaldos y cuatro horas de ajustes.</p>
+        </div>
+
+        <div class="card" style="padding:22px 24px">
+          <div class="win-head">
+            <span class="win-dots"><i></i><i></i><i></i></span>
+            <h3 class="win-title"><b>Diagnóstico IA de negocio</b> &nbsp;·&nbsp; otros giros</h3>
+          </div>
+          <p class="precio">$12,900 <small>+ IVA · cinco días hábiles · se acredita si implementas en 30 días</small></p>
+          <p>Para consultorios, asadores, operadores turísticos y servicios que quieren saber qué proceso automatizar primero y qué no tocar.</p>
+          <ul class="lista">
+            <li><b>Auditoría exterior:</b> tu web, tus reseñas, tus competidores, tus precios frente al mercado.</li>
+            <li><b>Auditoría interior:</b> procesos, tareas repetitivas, fugas de dinero y dependencia del dueño, cada una con ahorro estimado.</li>
+            <li><b>Síntesis estratégica:</b> máximo tres iniciativas en 30 días, roadmap 30/60/90 y checklist de seguridad.</li>
+            <li><b>Entrega en videollamada</b> de 45 minutos. No por correo.</li>
+          </ul>
+          <p class="nota">Si continúas: recepcionista digital por WhatsApp desde $19,900 + $3,900 al mes, o automatización a medida desde $25,000.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         PREGUNTAS FRECUENTES
+         ============================================================ -->
+    <section class="section faq" id="preguntas" style="margin-top:48px">
+      <div class="sec-head">
+        <div class="eyebrow">Antes de escribir</div>
+        <h2>Lo que todos preguntan</h2>
+      </div>
+      <details>
+        <summary>¿Por qué cobran el diagnóstico si otros lo regalan?</summary>
+        <p>Porque un diagnóstico gratis es una venta disfrazada. El nuestro termina con una recomendación que puede ser «no lo hagas», y eso solo es honesto si ya está pagado. Si continúas, se descuenta.</p>
+      </details>
+      <details>
+        <summary>Vendo carne, pollo o huevo. ¿Meta me deja?</summary>
+        <p>La política de comercio de Meta restringe esos productos en catálogos y «experiencias de comercio». Por eso el sistema no usa catálogo ni pagos en el chat, y por eso el diagnóstico obtiene una confirmación escrita del proveedor oficial antes de conectar tu número. Si no es viable, no se cobra la implementación.</p>
+      </details>
+      <details>
+        <summary>¿Tengo que cambiar mi punto de venta o mi número de WhatsApp?</summary>
+        <p>No. Se usa tu número actual y se puede seguir usando la app. El punto de venta se respeta: primero captura asistida con folio; la conexión automática se decide después, con datos del piloto, y nunca escribiendo en tu base sin aval del fabricante.</p>
+      </details>
+      <details>
+        <summary>¿Cuánto cuestan los mensajes de WhatsApp?</summary>
+        <p>Meta cobra los mensajes de servicio desde octubre de 2026, después de 1,000 gratis al mes por número; los de marketing cuestan más. Van a tu nombre, aparte de nuestros honorarios, y en el diagnóstico te damos la provisión mensual con tu volumen real.</p>
+      </details>
+      <details>
+        <summary>¿Quién construye y quién responde?</summary>
+        <p>Construimos con Claude Code, con pruebas automatizadas y aislamiento de datos por cliente. Las reglas las escribimos contigo. Adrián Zepeda responde por el resultado y da la cara en cada llamada.</p>
+      </details>
+    </section>
+
+    <!-- ============================================================
+         CONTACTO (reusa js/contact.js: IDs y clases fijos)
+         ============================================================ -->
+    <section class="section" id="contacto" style="margin-top:48px">
+      <div class="approve">
+        <div class="ic">✦</div>
+        <div class="txt">
+          <div class="t">¿Hablamos 20 minutos?</div>
+          <div class="d">Escríbenos por WhatsApp con la palabra <b>DIAGNOSTICO</b> o deja aquí tu caso. Respondemos personalmente, no un bot.</div>
+        </div>
+        <a class="btn" href="https://wa.me/525547581543?text=DIAGNOSTICO" rel="noopener">WhatsApp</a>
+      </div>
+
+      <div class="card" style="margin-top:24px;padding:22px 24px">
+        <div class="win-head">
+          <span class="win-dots"><i></i><i></i><i></i></span>
+          <h2 class="win-title"><b>Cuéntanos tu caso</b> &nbsp;·&nbsp; adlor://diagnostico</h2>
+        </div>
+
+        <form id="contact-form" class="cform" novalidate>
+          <div class="cform-grid">
+            <div class="cf-field">
+              <label class="cf-label" for="cf-nombre">Nombre</label>
+              <input id="cf-nombre" name="nombre" type="text" required autocomplete="name" placeholder="Tu nombre">
+            </div>
+            <div class="cf-field">
+              <label class="cf-label" for="cf-email">Correo</label>
+              <input id="cf-email" name="email" type="email" required autocomplete="email" placeholder="tu@correo.com">
+            </div>
+          </div>
+
+          <div class="cf-field">
+            <label class="cf-label" for="cf-interes">¿Qué necesitas?</label>
+            <select id="cf-interes" name="interes">
+              <option value="Diagnóstico de pedidos (distribuidora)">Pedidos por WhatsApp para mi distribuidora</option>
+              <option value="Recepcionista digital">Recepcionista digital por WhatsApp</option>
+              <option value="Diagnóstico IA de negocio">Diagnóstico IA de mi negocio</option>
+              <option value="Otro">Otro</option>
+            </select>
+          </div>
+
+          <div class="cf-field">
+            <label class="cf-label" for="cf-mensaje">Tu negocio y tu WhatsApp</label>
+            <textarea id="cf-mensaje" name="mensaje" rows="4" required placeholder="Qué vendes, cuántos pedidos a la semana, quién los captura hoy y a qué WhatsApp te escribimos."></textarea>
+          </div>
+
+          <input type="text" name="_honey" class="cf-honey" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+          <div class="cf-actions">
+            <button type="submit" id="cf-send" class="btn">Enviar</button>
+            <a class="btn ghost" href="mailto:contacto@adlor-ia.com?subject=Diagn%C3%B3stico">O por correo</a>
+          </div>
+
+          <p id="cf-status" class="cf-status" role="status"></p>
+          <p class="cf-aviso"><b>Responsable:</b> ADLOR, S.A. de C.V., Oaxaca 7, interior 503, San Jerónimo Aculco,
+            La Magdalena Contreras, C.P. 10400, Ciudad de México. <b>Para qué usamos tus datos:</b> responder tu
+            mensaje. No te suscribimos a nada por escribirnos. <b>Tus opciones:</b> escribir a contacto@adlor-ia.com.
+            <b>Aviso completo y derechos ARCO:</b> <a href="/aviso-de-privacidad/">adlor-ia.com/aviso-de-privacidad</a></p>
+        </form>
+      </div>
+    </section>
+
+    <footer class="foot">
+      <span class="l">ADLOR · IA · <a href="mailto:contacto@adlor-ia.com" style="color:var(--cyan);text-decoration:none">contacto@adlor-ia.com</a></span>
+      <span class="r">PYMES · <b>CDMX Y EDOMEX</b> · <a href="/" style="color:var(--cyan);text-decoration:none">ADLOR →</a></span>
+      <address class="dir">ADLOR SA de CV · Oaxaca 7, int. 503, San Jerónimo Aculco, Magdalena Contreras, C.P. 10400, Ciudad de México · <a href="tel:+525547581543">Tel. 55 4758 1543</a> · <a href="/aviso-de-privacidad/">Aviso de privacidad</a></address>
+    </footer>
+  </main>
+</div>
+
+<script src="../js/contact.js" defer></script>
+</body>
+</html>
