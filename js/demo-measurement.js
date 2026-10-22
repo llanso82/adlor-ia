@@ -19,11 +19,17 @@
     var controller = new AbortController();
     var timeout = setTimeout(function () { controller.abort(); }, 12000);
     try {
-      var response = await fetch(base + table + '?on_conflict=id', {
+      var response = await fetch(base + table, {
         method: 'POST', headers: { 'Content-Type': 'application/json', apikey: publicKey,
-          Authorization: 'Bearer ' + publicKey, Prefer: 'resolution=ignore-duplicates,return=minimal' },
+          Authorization: 'Bearer ' + publicKey, Prefer: 'return=minimal' },
         body: JSON.stringify(row), signal: controller.signal, keepalive: true
       });
+      // INSERT-only roles cannot use an upsert conflict target without SELECT.
+      // A duplicate of this random primary key confirms the original insert.
+      if (response.status === 409) {
+        var conflict = await response.json();
+        return { ok: conflict.code === '23505' && String(conflict.message).includes('"' + table + '_pkey"'), retryable: false };
+      }
       return { ok: response.ok, retryable: response.status >= 500 || response.status === 429 };
     } catch (_) { return { ok: false, retryable: true }; }
     finally { clearTimeout(timeout); }
