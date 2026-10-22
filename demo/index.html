@@ -16,6 +16,7 @@
   <style>
     :root{color-scheme:dark;--bg:#0b1723;--ink:#f5f3ed;--muted:#b4c4ce;--accent:#9fe6d3;--line:#35505d;font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
     *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);line-height:1.6}a{color:var(--accent)}a:hover{text-decoration-thickness:2px}a:focus-visible,summary:focus-visible{outline:3px solid var(--accent);outline-offset:5px}main,header,footer{max-width:1120px;margin:auto;padding:28px 24px}header{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;border-bottom:1px solid var(--line)}header a{text-decoration:none}.brand{font-size:25px;font-weight:750;letter-spacing:.08em}nav{display:flex;flex-wrap:wrap;gap:22px;align-items:center}section{padding:38px 0;border-bottom:1px solid var(--line);scroll-margin-top:24px}h1{font-size:clamp(36px,5.5vw,66px);line-height:1.1;max-width:950px;letter-spacing:-.035em;margin:20px 0 24px}h2{font-size:clamp(27px,3vw,39px);line-height:1.2;margin:0 0 20px}h3{font-size:21px;line-height:1.3}p{max-width:780px}.lead{font-size:22px;color:var(--muted)}.eyebrow{color:var(--accent);font-weight:650}.actions{display:flex;flex-wrap:wrap;gap:14px;margin:26px 0}.button{display:inline-block;text-decoration:none;border:1px solid var(--accent);border-radius:8px;padding:13px 20px;font-weight:650;line-height:1.4}.button.primary{background:var(--accent);color:var(--bg)}.note{font-size:15px;color:var(--muted)}.services{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:32px}.services p{color:var(--muted)}.media{width:100%;height:auto;display:block;border:1px solid var(--line);border-radius:10px}.presentation{max-width:780px}video{max-height:620px;background:#071019}.video-layout{display:grid;grid-template-columns:minmax(240px,360px) 1fr;gap:40px;align-items:center}.video-layout video{max-width:360px}.steps{padding-left:24px}.steps li{margin:14px 0}summary{font-size:20px;color:var(--accent);cursor:pointer;padding:12px 0}iframe{display:block;width:100%;height:850px;border:1px solid var(--line);border-radius:10px;background:white;margin:16px 0}footer{color:var(--muted);font-size:14px}.skip{position:absolute;left:16px;top:-100px;background:var(--ink);color:var(--bg);padding:12px}.skip:focus{top:8px}@media(max-width:700px){main,header,footer{padding:22px 18px}.services,.video-layout{grid-template-columns:1fr;gap:18px}.lead{font-size:20px}.video-layout video{max-width:100%;max-height:560px}section{padding:30px 0}iframe{height:760px}.actions .button{width:100%;text-align:center}}@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+    .request-form{max-width:760px;margin:26px 0}.request-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.request-form label{display:block;font-weight:600;margin-bottom:7px}.request-form input:not([type=checkbox]),.request-form textarea{display:block;width:100%;padding:12px;border:1px solid var(--line);border-radius:6px;background:#132532;color:var(--ink);font:inherit}.request-form textarea{min-height:110px}.request-form button{font:inherit;cursor:pointer}.request-form button:disabled{opacity:.6;cursor:wait}.request-form .consent{font-weight:400;font-size:15px;margin:18px 0}.request-form :focus-visible{outline:3px solid var(--accent);outline-offset:3px}.honey{position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden}#demo-status{min-height:28px}@media(max-width:700px){.request-grid{grid-template-columns:1fr}}
   </style>
 </head>
 <body>
@@ -58,11 +59,25 @@
     <h2>¿Lo vemos con un ejemplo de tu equipo?</h2>
     <p class="lead">En 20 minutos conocemos un proceso, te mostramos la demo y vemos si tiene sentido avanzar.</p>
     <p>Cuéntame tu empresa, qué tarea quieres revisar y cuándo te viene bien conversar. Si nos conocimos en USEM o BNI, menciónalo para ubicar nuestra conversación.</p>
+    <form id="demo-request" class="request-form">
+      <div class="request-grid">
+        <div><label for="demo-name">Tu nombre</label><input id="demo-name" name="name" autocomplete="name" maxlength="120" required></div>
+        <div><label for="demo-email">Correo para responderte</label><input id="demo-email" name="email" type="email" autocomplete="email" maxlength="200" required></div>
+      </div>
+      <p><label for="demo-company">Empresa</label><input id="demo-company" name="company" autocomplete="organization" maxlength="120" required></p>
+      <p><label for="demo-process">¿Qué proceso quieres revisar?</label><textarea id="demo-process" name="process" maxlength="2000" placeholder="Cuéntanos la tarea y, si quieres, tu disponibilidad." required></textarea></p>
+      <div class="honey" aria-hidden="true"><label for="demo-website">Deja este campo vacío</label><input id="demo-website" name="website" tabindex="-1" autocomplete="off"></div>
+      <label class="consent"><input type="checkbox" name="consent" required> Leí el <a href="/aviso-de-privacidad/">aviso de privacidad</a> y solicito que ADLOR me contacte para atender este mensaje.</label>
+      <button class="button primary" type="submit">Solicitar una reunión</button>
+      <p id="demo-status" class="note" role="status" aria-live="polite"></p>
+    </form>
+    <p>Si prefieres, también puedes escribirme directamente:</p>
     <div class="actions"><a class="button primary" href="mailto:adrian@adlor-ia.com?subject=Demo%20ADLOR&amp;body=Hola%20Adrian%2C%20quiero%20coordinar%20una%20demo.%0AEmpresa%3A%0AProceso%3A%0ADisponibilidad%3A%0ANos%20conocimos%20en%3A">Pedir una demo por correo</a><a class="button" href="https://wa.me/525547581543?text=Hola%20Adrian%2C%20vi%20la%20demo%20de%20ADLOR%20y%20quiero%20revisar%20un%20proceso%20de%20mi%20empresa.">Escribirme por WhatsApp</a></div>
     <p><strong>Adrián Zepeda</strong><br><a href="mailto:adrian@adlor-ia.com">adrian@adlor-ia.com</a></p>
     <p class="note">Acordamos fecha, hora y participantes por mensaje. Enviar una solicitud no reserva automáticamente un horario.</p>
   </section>
 </main>
 <footer>ADLOR · Ventas, operaciones y capacitación en IA · <a href="/aviso-de-privacidad/">Aviso de privacidad</a></footer>
+<script src="/js/demo-measurement.js" defer></script>
 </body>
 </html>
