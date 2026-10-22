@@ -489,3 +489,40 @@ footer.foot a:hover{text-shadow:0 0 14px rgba(66,230,255,.6)}
 @media (max-width:520px){
   .win-head{flex-wrap:wrap;row-gap:4px}
 }
+
+/* Catálogo comercial y solicitud de demo. Reutiliza tarjetas y botones del sitio. */
+.hero-note,.catalog-note{font-size:13px;line-height:1.7;color:var(--muted)}
+.hero-note{max-width:58ch;margin:16px 0 0}
+.hero .kpi .val{font-size:16px;line-height:1.4}
+.service-catalog{margin-top:36px}
+.catalog-intro{display:flex;align-items:center;gap:28px;justify-content:space-between;padding:26px 0}
+.catalog-intro h2{font-size:27px;line-height:1.25;margin:0 0 10px}
+.catalog-intro p{max-width:70ch;color:var(--muted);margin:0;line-height:1.75}
+.catalog-intro>.btn{flex-shrink:0}
+.service-card{display:flex;flex-direction:column}
+.service-card .name{font-size:19px;line-height:1.35}
+.service-card .role{line-height:1.6;margin-top:4px}
+.service-card .act{font-size:15px;line-height:1.8;flex:1}
+.service-price{font-size:16px;font-weight:650;margin:14px 0 6px;color:var(--ink)}
+.service-limit{font-size:13px;line-height:1.7;color:var(--muted);margin:0 0 18px}
+.service-link{color:var(--cyan);font-size:14px;text-underline-offset:4px;line-height:1.7}
+.catalog-note{margin:22px 0}
+.catalog-demo{border-top:1px solid var(--line-strong);padding:26px 0 0}
+.catalog-demo h3{font-size:21px;margin:0 0 10px}
+.catalog-demo p{max-width:78ch;color:var(--muted);line-height:1.8;margin:0 0 20px}
+.demo-contact{align-items:start;gap:28px;flex-wrap:wrap}
+.demo-contact .txt{flex:1 1 390px;min-width:0}
+.approve.demo-contact .txt .t{font-size:26px;line-height:1.3;margin:0 0 12px}
+.approve.demo-contact .txt .d{font-size:15px;line-height:1.8;margin:0}
+.demo-email{font-size:18px;margin:16px 0 0;overflow-wrap:anywhere}
+.demo-email a{color:var(--cyan);text-underline-offset:4px}
+.demo-contact-actions{display:flex;flex-direction:column;align-items:stretch;gap:12px;max-width:100%}
+.demo-contact-actions .btn{justify-content:center;text-align:center;white-space:normal}
+.demo-contact-actions .service-link{text-align:center}
+@media(max-width:720px){
+  .catalog-intro{flex-direction:column;align-items:flex-start;gap:18px}
+  .catalog-intro h2{font-size:23px}
+  .demo-contact .txt{flex-basis:100%}
+  .demo-contact-actions{width:100%}
+  .approve.demo-contact .txt .t{font-size:23px}
+}
