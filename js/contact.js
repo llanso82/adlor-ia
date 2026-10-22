@@ -8,8 +8,8 @@
       interesado o qué quiere construir, y desde qué página escribió.
       Ese registro es la memoria: los correos se pierden, la tabla no.
 
-   2) AVISA por correo a contacto@adlor-ia.com con FormSubmit en modo
-      AJAX:  POST https://formsubmit.co/ajax/contacto@adlor-ia.com
+   2) AVISA por correo a adrian@adlor-ia.com con FormSubmit en modo
+      AJAX:  POST https://formsubmit.co/ajax/adrian@adlor-ia.com
 
    Basta con que UNA de las dos funcione para dar el envío por bueno:
    si el correo falla pero el registro entró, el mensaje no se perdió.
@@ -20,7 +20,7 @@
 
    ⚠ IMPORTANTE — FormSubmit: la PRIMERA vez que alguien envíe el
    formulario, FormSubmit manda un correo de activación a
-   contacto@adlor-ia.com — hay que hacer clic en ese enlace UNA vez
+   adrian@adlor-ia.com — hay que hacer clic en ese enlace UNA vez
    para activar los envíos. Hasta entonces, los mensajes no llegan.
 
    Incluye: validación en español, honeypot anti-bots, estados del
@@ -44,7 +44,7 @@
   var honeypot  = form.querySelector('input[name="_honey"]');
 
   /* ---------- configuración ---------- */
-  var ENDPOINT   = 'https://formsubmit.co/ajax/contacto@adlor-ia.com';
+  var ENDPOINT   = 'https://formsubmit.co/ajax/adrian@adlor-ia.com';
 
   // Base de datos de visitantes (Supabase · proyecto "adlor-ia").
   // Clave publicable: la tabla `visitors` solo acepta INSERT vía RLS.
@@ -57,7 +57,7 @@
 
   // Mensaje de respaldo si falla la red o el servicio (elStatus acepta innerHTML)
   var ERR_HTML = 'No se pudo enviar. Escríbenos directo a ' +
-    '<a href="mailto:contacto@adlor-ia.com">contacto@adlor-ia.com</a>.';
+    '<a href="mailto:adrian@adlor-ia.com">adrian@adlor-ia.com</a>.';
 
   /* ---------- helpers de estado visual ---------- */
 
@@ -202,7 +202,7 @@
 
     // 2) Honeypot: si un bot lo llenó, simulamos éxito SIN enviar nada
     if (honey) {
-      setStatus('ok', '✓ Mensaje recibido. Te respondemos pronto al correo ' + email + '.');
+      setStatus('ok', '✓ Solicitud registrada. Te responderemos al correo ' + email + ' para coordinar el siguiente paso. El horario se confirma por correo.');
       form.reset();
       return;
     }
@@ -276,7 +276,7 @@
         // 4) Basta con que una de las dos haya entrado: el mensaje ya existe
         //    en algún lado y Adrián lo va a ver.
         if (registrado || avisado) {
-          setStatus('ok', '✓ Mensaje recibido. Te respondemos pronto al correo ' + email + '.');
+          setStatus('ok', '✓ Solicitud registrada. Te responderemos al correo ' + email + ' para coordinar el siguiente paso. El horario se confirma por correo.');
           form.reset();
         } else {
           // 5) Ni base de datos ni correo: respaldo con mailto
